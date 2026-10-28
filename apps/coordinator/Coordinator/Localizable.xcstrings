@@ -6065,6 +6065,22 @@
         }
       }
     },
+    "This Safe is on a network this app doesn't support.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This Safe is on a network this app doesn't support."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这个 Safe 在本应用不支持的网络上。"
+          }
+        }
+      }
+    },
     "This Safe ran an extra setup step when it was created. The offline signer can't check what that step did, so it can't be added.": {
       "localizations": {
         "en": {
@@ -6077,6 +6093,38 @@
           "stringUnit": {
             "state": "translated",
             "value": "这个 Safe 创建时还执行了一步额外的初始化。离线签名器没法核对这一步做了什么，所以不能添加。"
+          }
+        }
+      }
+    },
+    "This Safe was created with a fallback handler that isn't Safe's official one, and that contract could approve signatures on the Safe's behalf, so it can't be added.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This Safe was created with a fallback handler that isn't Safe's official one, and that contract could approve signatures on the Safe's behalf, so it can't be added."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这个 Safe 创建时装的 fallback handler 不是 Safe 官方的，这个合约可以替 Safe 认可签名，所以不能添加。"
+          }
+        }
+      }
+    },
+    "This Safe was set up to pay someone from its own funds when it was created, which normal Safe creation never does, so it can't be added.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This Safe was set up to pay someone from its own funds when it was created, which normal Safe creation never does, so it can't be added."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这个 Safe 创建时设置了从它自己的资金里付款给别人，正常创建 Safe 不会这样做，所以不能添加。"
           }
         }
       }

@@ -95,10 +95,25 @@ enum Vectors {
 
     static let createSigner = SigningPolicy.createSigner + Data(repeating: 1, count: 96)
 
-    static func createProxy(singleton: Address = safeL2) -> Data {
-        let initializer = Data(repeating: 2, count: 100)
-        return SigningPolicy.createProxyWithNonce + singleton.abiEncoded + word(96) + word(7) + word(initializer.count)
-            + initializer + Data(count: 28)
+    static let attacker = Address(hex: "0x00000000000000000000000000000000000BAD00")!
+
+    /// 桌面端正常创建的参数：SafeL2 1.4.1、1.4.1 的 CompatibilityFallbackHandler、setup 不带额外调用和付款。
+    static func setup(_ change: (inout SafeRegistration) -> Void = { _ in }) -> SafeRegistration {
+        var r = SafeRegistration(chainID: 11_155_111, safe: .zero, proxyFactory: SigningPolicy.proxyFactory141, singleton: safeL2,
+                                 saltNonce: UInt256(7), owners: [Address(hex: "0xc8F9e2ba66e640B05D6d8DA4f00f567679bc9A06")!],
+                                 threshold: 1, fallbackHandler: Address(hex: "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99")!)
+        change(&r)
+        return r
+    }
+
+    /// `createProxyWithNonce(singleton, initializer, saltNonce)`，标准编码。
+    static func createProxy(singleton: Address = safeL2, initializer: Data = SafeAddress.setupCalldata(setup())) -> Data {
+        SigningPolicy.createProxyWithNonce + singleton.abiEncoded + word(96) + word(7) + word(initializer.count)
+            + initializer + Data(count: (32 - initializer.count % 32) % 32)
+    }
+
+    static func creating(_ initializer: Data) -> Data {
+        batch([entry(SigningPolicy.signerFactory, createSigner), entry(SigningPolicy.proxyFactory141, createProxy(initializer: initializer))])
     }
 
     func deploy(_ data: Data) -> EIP1559Transaction { tx(to: SigningPolicy.multiSendCallOnly141, data: data) }
@@ -137,6 +152,62 @@ enum Vectors {
         #expect(throws: SigningPolicy.Violation.notAllowed) {
             try policy.check(tx(to: SigningPolicy.multiSendCallOnly141, data: Self.batch([signer]), value: UInt256(1)))
         }
+    }
+
+    /// 创建 Safe 的 initializer 要和签名器登记时一样核对：被控制的桌面端可以让 owner 和门限看起来都对，
+    /// 却在 setup 里 DELEGATECALL 攻击者合约（偷加 module 或 owner），或者装一个会替 Safe "认可"任何签名的 fallback handler。
+    @Test func refusesUnsafeSetup() {
+        for r in [
+            Self.setup { $0.to = Self.attacker; $0.data = Data([0xde, 0xad, 0xbe, 0xef]) }, // setup 里 DELEGATECALL 攻击者合约
+            Self.setup { $0.to = Self.attacker }, // 只有 to
+            Self.setup { $0.data = Data([0x01]) }, // 只有 data
+            Self.setup { $0.payment = UInt256(1); $0.paymentReceiver = Self.attacker },
+            Self.setup { $0.paymentToken = Self.attacker },
+            Self.setup { $0.paymentReceiver = Self.attacker },
+            Self.setup { $0.fallbackHandler = Self.attacker }, // 非官方 fallback handler
+            Self.setup { $0.fallbackHandler = Address(hex: "0xf48f2B2d2a534e402487b3ee7C18c33Aec0Fe5e4")! }, // 官方的，但是 1.3.0 的
+        ] {
+            #expect(throws: SigningPolicy.Violation.notAllowed) { try policy.check(deploy(Self.creating(SafeAddress.setupCalldata(r)))) }
+        }
+    }
+
+    /// initializer 必须是 `Safe.setup`，两层的编码都必须规范：重新编码要逐字节一致。
+    @Test func refusesOtherInitializers() {
+        let good = SafeAddress.setupCalldata(Self.setup())
+        // owners 的偏移改成 0x120，后面整体挪一个字：Solidity 照样能解，但不是规范编码。
+        var shifted = Data(good.prefix(4)) + Self.word(0x120) + good[36..<100] + Self.word(0x140 + 32 * 1) + good[132..<260]
+        shifted += Data(count: 32) + good[260...]
+        let enableModule = Data(Keccak.hash256(Data("enableModule(address)".utf8)).prefix(4)) + Self.attacker.abiEncoded
+        for initializer in [
+            Data(repeating: 2, count: 100), // 不是 setup
+            enableModule,
+            Data(), // 空的
+            good.prefix(good.count - 32), // 截断
+            good + Data(count: 32), // 末尾多一个字
+            shifted,
+            Data(good.prefix(4 + 32 * 2)) + Data([0x01]) + good[(4 + 32 * 2 + 1)...], // 地址高位不是 0
+        ] {
+            #expect(throws: SigningPolicy.Violation.notAllowed) { try policy.check(deploy(Self.creating(initializer))) }
+        }
+        // createProxyWithNonce 本身不规范：bytes 的偏移不是 0x60、补齐不是 0、末尾多字节。
+        let proxy = Self.createProxy()
+        var offset128: Data = SigningPolicy.createProxyWithNonce + Self.safeL2.abiEncoded + Self.word(128) + Self.word(7)
+        offset128 += Data(count: 32) + Self.word(good.count) + good + Data(count: (32 - good.count % 32) % 32)
+        let badPadding: Data = proxy.prefix(proxy.count - 1) + Data([1])
+        for data in [offset128, badPadding, proxy + Data(count: 32)] {
+            #expect(throws: SigningPolicy.Violation.notAllowed) {
+                try policy.check(deploy(Self.batch([Self.entry(SigningPolicy.proxyFactory141, data)])))
+            }
+        }
+    }
+
+    /// 桌面端正常创建的批量照常通过：零地址 handler、多个 owner、各版本官方 handler 配对应版本的 singleton。
+    @Test func allowsNormalCreation() throws {
+        try policy.check(deploy(Self.creating(SafeAddress.setupCalldata(Self.setup()))))
+        try policy.check(deploy(Self.creating(SafeAddress.setupCalldata(Self.setup { $0.fallbackHandler = .zero }))))
+        try policy.check(deploy(Self.creating(SafeAddress.setupCalldata(Self.setup { $0.owners.append(Self.attacker); $0.threshold = 2 }))))
+        let safe141 = Address(hex: "0x41675C099F32341bf84BFc5382aF534df5C7461a")!
+        try policy.check(deploy(Self.batch([Self.entry(SigningPolicy.proxyFactory141, Self.createProxy(singleton: safe141))])))
     }
 
     @Test func refused() {

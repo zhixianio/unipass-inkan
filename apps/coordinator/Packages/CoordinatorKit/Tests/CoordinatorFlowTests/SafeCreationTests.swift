@@ -174,6 +174,38 @@ import UniPassCore
         #expect(ExistingSafe.problem(unknown, onChain: Self.unchanged, service: Self.unchanged, signers: [Self.proxy]) == .unsupportedFactoryOrVersion)
     }
 
+    /// 创建参数和签名器登记时用同一份核对（core 的 `SafeAddress.verify`）：setup 带付款、创建时装了非官方的 fallback handler
+    ///（它会替 Safe 回答 EIP-1271 签名校验），桌面端在添加时就拒绝，不等签名器登记时才发现。
+    @Test func refusesWhatTheSignerWouldRefuse() {
+        let attacker = Address(hex: "0x00000000000000000000000000000000000BAD00")!
+        func created(_ change: (inout SafeRegistration) -> Void) -> SafeRegistration {
+            var r = Self.testSafe
+            change(&r)
+            r.safe = SafeAddress.compute(r)!
+            return r
+        }
+        func problem(_ r: SafeRegistration) -> ExistingSafe.Problem? {
+            var onChain = Self.unchanged
+            onChain.fallbackHandler = r.fallbackHandler
+            return ExistingSafe.problem(r, onChain: onChain, service: onChain, signers: [Self.proxy])
+        }
+        for r in [created { $0.payment = UInt256(1); $0.paymentReceiver = attacker },
+                  created { $0.paymentToken = attacker },
+                  created { $0.paymentReceiver = attacker }] {
+            #expect(problem(r) == .setupPayment)
+        }
+        #expect(problem(created { $0.fallbackHandler = attacker }) == .unofficialFallbackHandler)
+        // 官方的，但版本不对（1.3.0 的 handler 配 1.4.1 的 singleton）。
+        #expect(problem(created { $0.fallbackHandler = Address(hex: "0xf48f2B2d2a534e402487b3ee7C18c33Aec0Fe5e4")! }) == .unofficialFallbackHandler)
+        // 只有 data、to 为零也算额外调用。
+        #expect(problem(created { $0.data = Data([1]) }) == .extraSetupCall)
+        // 零地址 handler 照常可以添加。
+        #expect(problem(created { $0.fallbackHandler = .zero }) == nil)
+        var otherChain = Self.testSafe
+        otherChain.chainID = 10
+        #expect(problem(otherChain) == .unsupportedNetwork)
+    }
+
     // MARK: 签名人地址不能收款
 
     @Test func signerContractsCantReceive() {

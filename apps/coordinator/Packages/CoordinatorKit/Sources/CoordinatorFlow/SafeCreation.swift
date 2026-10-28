@@ -108,6 +108,12 @@ public enum ExistingSafe {
         case addressMismatch
         /// 创建时还执行了额外的初始化调用（setup 的 to / data）。
         case extraSetupCall
+        /// 创建时带了付款（setup 的 paymentToken / payment / paymentReceiver 不为零）。
+        case setupPayment
+        /// 创建时的 fallback handler 不是零地址，也不是同版本官方的 CompatibilityFallbackHandler。
+        case unofficialFallbackHandler
+        /// 不是支持的网络。
+        case unsupportedNetwork
         case ownersChanged
         case thresholdChanged
         case hasModules
@@ -120,45 +126,12 @@ public enum ExistingSafe {
         case sourcesDisagree
     }
 
-    /// `setup(address[],uint256,address,bytes,address,address,uint256,address)`。
-    static let setupSelector = SafeCreation.selector("setup(address[],uint256,address,bytes,address,address,uint256,address)")
-
-    /// `Safe.setup(...)` 调用数据 → 创建参数；必须能用 `SafeAddress.setupCalldata` 原样编码回去。
+    /// `Safe.setup(...)` 调用数据 → 创建参数；必须能用 `SafeAddress.setupCalldata` 原样编码回去（解码在 core，和签名前的核对共用）。
     public static func registration(chainID: UInt64, safe: Address, factory: Address, singleton: Address,
                                     setupData: Data, saltNonce: UInt256, name: String?) throws -> SafeRegistration {
-        let b = [UInt8](setupData)
-        guard b.count >= 4 + 8 * 32, Data(b[0..<4]) == setupSelector else { throw Problem.setupNotDecodable }
-        func word(_ i: Int) -> Data? {
-            let start = 4 + 32 * i
-            return b.count >= start + 32 ? Data(b[start..<(start + 32)]) : nil
-        }
-        func int(_ i: Int) -> Int? {
-            guard let w = word(i), let n = UInt256(bigEndian: w), n.words[1...].allSatisfy({ $0 == 0 }), n.words[0] < 1 << 20 else { return nil }
-            return Int(n.words[0])
-        }
-        func address(_ w: Data?) -> Address? {
-            guard let w, w.prefix(12).allSatisfy({ $0 == 0 }) else { return nil }
-            return Address(bytes: w.suffix(20))
-        }
-        guard let ownersOffset = int(0), let threshold = int(1), let to = address(word(2)), let dataOffset = int(3),
-              let fallbackHandler = address(word(4)), let paymentToken = address(word(5)),
-              let paymentWord = word(6), let payment = UInt256(bigEndian: paymentWord), let paymentReceiver = address(word(7)),
-              ownersOffset % 32 == 0, dataOffset % 32 == 0,
-              let count = int(ownersOffset / 32), count >= 1, count <= SafeRegistration.maxOwners,
-              let dataLength = int(dataOffset / 32), b.count >= 4 + dataOffset + 32 + dataLength
+        guard let r = SafeAddress.registration(chainID: chainID, safe: safe, factory: factory, singleton: singleton,
+                                               saltNonce: saltNonce, setupCalldata: setupData, name: name)
         else { throw Problem.setupNotDecodable }
-        var owners: [Address] = []
-        for i in 0..<count {
-            guard let o = address(word(ownersOffset / 32 + 1 + i)) else { throw Problem.setupNotDecodable }
-            owners.append(o)
-        }
-        let start = 4 + dataOffset + 32
-        let data = Data(b[start..<(start + dataLength)])
-        let r = SafeRegistration(chainID: chainID, safe: safe, proxyFactory: factory, singleton: singleton, saltNonce: saltNonce,
-                                 owners: owners, threshold: UInt64(threshold), to: to, data: data,
-                                 fallbackHandler: fallbackHandler, paymentToken: paymentToken, payment: payment,
-                                 paymentReceiver: paymentReceiver, name: name)
-        guard SafeAddress.setupCalldata(r) == setupData else { throw Problem.setupNotDecodable }
         return r
     }
 
@@ -214,12 +187,30 @@ public enum ExistingSafe {
     public static let fallbackHandlerSlot = Keccak.hash256(Data("fallback_manager.handler.address".utf8))
     public static let singletonSlot = Data(count: 32)
 
+    /// 创建参数本身的问题：和签名器登记时是同一份核对（core 的 `SafeAddress.verify`），在这里先拒绝，不等到签名器那一步。
+    static func creationProblem(_ r: SafeRegistration) -> Problem? {
+        do {
+            _ = try SafeAddress.verify(r)
+            return nil
+        } catch let e as SafeAddress.VerificationError {
+            switch e {
+            case .unsupportedChain: return .unsupportedNetwork
+            case .unknownFactoryOrSingleton: return .unsupportedFactoryOrVersion
+            case .addressMismatch: return .addressMismatch
+            case .setupCall: return .extraSetupCall
+            case .setupPayment: return .setupPayment
+            case .unofficialFallbackHandler: return .unofficialFallbackHandler
+            case .signerNotAnOwner: return .signerNotOwner
+            }
+        } catch {
+            return .setupNotDecodable
+        }
+    }
+
     /// 能不能添加。返回第一个不满足的条件；全部满足返回 nil。
     /// `onChain` 是区块链节点读的，`service` 是 Safe 交易服务 `/safes/{address}/` 报的；两边必须一致（不只信一个来源）。
     public static func problem(_ r: SafeRegistration, onChain: OnChain, service: OnChain, signers: Set<Address>) -> Problem? {
-        guard SafeAddress.initCode(factory: r.proxyFactory, singleton: r.singleton) != nil else { return .unsupportedFactoryOrVersion }
-        guard SafeAddress.compute(r) == r.safe else { return .addressMismatch }
-        guard r.to == .zero, r.data.isEmpty else { return .extraSetupCall }
+        if let p = creationProblem(r) { return p }
         guard disagreements(onChain, service).isEmpty else { return .sourcesDisagree }
         guard onChain.singleton == r.singleton else { return .singletonChanged }
         guard Set(onChain.owners) == Set(r.owners), onChain.owners.count == r.owners.count else { return .ownersChanged }

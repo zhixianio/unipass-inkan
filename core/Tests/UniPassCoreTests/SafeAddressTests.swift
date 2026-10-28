@@ -38,6 +38,72 @@ struct SafeAddressTests {
         #expect(throws: SafeAddress.VerificationError.unsupportedChain(10)) { try SafeAddress.verify(r) }
     }
 
+    static func word(_ n: Int) -> Data { UInt256(UInt64(n)).bigEndianBytes }
+
+    /// `createProxyWithNonce(singleton, initializer, saltNonce)` 的标准编码。
+    static func createProxyWithNonce(_ r: SafeRegistration, initializer: Data? = nil) -> Data {
+        let i = initializer ?? SafeAddress.setupCalldata(r)
+        return SafeAddress.createProxyWithNonceSelector + r.singleton.abiEncoded + word(96) + r.saltNonce.bigEndianBytes
+            + word(i.count) + i + Data(count: (32 - i.count % 32) % 32)
+    }
+
+    /// 解码创建交易：解出的参数和测试 Safe 一致，CREATE2 地址就是链上那个，并且能过 `verify`。
+    @Test func decodesTheCreationCall() throws {
+        let t = Self.sepoliaTestSafe
+        #expect(SafeAddress.createProxyWithNonceSelector.hexString == "0x1688f0b9")
+        let back = try #require(SafeAddress.registration(chainID: t.chainID, safe: t.safe, factory: t.proxyFactory, singleton: t.singleton,
+                                                         saltNonce: t.saltNonce, setupCalldata: SafeAddress.setupCalldata(t)))
+        #expect(back == t)
+        let created = try #require(SafeAddress.registration(chainID: t.chainID, factory: t.proxyFactory,
+                                                            createProxyWithNonce: Self.createProxyWithNonce(t)))
+        #expect(created == t)
+        _ = try SafeAddress.verify(created)
+        // 不是官方的 factory：地址算不出来，verify 拒绝。
+        let other = Address(hex: "0x0000000000000000000000000000000000001234")!
+        let unknown = try #require(SafeAddress.registration(chainID: t.chainID, factory: other, createProxyWithNonce: Self.createProxyWithNonce(t)))
+        #expect(unknown.safe == .zero)
+        #expect(throws: SafeAddress.VerificationError.unknownFactoryOrSingleton) { try SafeAddress.verify(unknown) }
+    }
+
+    /// 解出的参数照常要过 `verify`：setup 带额外调用的能解出来，但核对不过。
+    @Test func decodedSetupIsVerifiedLikeARegistration() throws {
+        var r = Self.sepoliaTestSafe
+        r.to = Address(hex: "0x00000000000000000000000000000000000BAD00")!
+        r.data = Data([0xde, 0xad])
+        let created = try #require(SafeAddress.registration(chainID: r.chainID, factory: r.proxyFactory, createProxyWithNonce: Self.createProxyWithNonce(r)))
+        #expect(created.to == r.to && created.data == r.data && created.safe == SafeAddress.compute(r))
+        #expect(throws: SafeAddress.VerificationError.setupCall(to: r.to)) { try SafeAddress.verify(created) }
+    }
+
+    /// 不是 `setup`、编码不规范（偏移、地址高位、补齐、多余或缺少字节）的一律解不出来。
+    @Test func onlyCanonicalSetupDecodes() {
+        let t = Self.sepoliaTestSafe
+        let good = SafeAddress.setupCalldata(t)
+        func decode(_ d: Data) -> SafeRegistration? {
+            SafeAddress.registration(chainID: t.chainID, safe: t.safe, factory: t.proxyFactory, singleton: t.singleton,
+                                     saltNonce: t.saltNonce, setupCalldata: d)
+        }
+        // owners 的偏移改成 0x120，后面整体挪一个字（Solidity 能解，但不规范）。
+        var shifted = Data(good.prefix(4)) + Self.word(0x120) + good[36..<100] + Self.word(0x180) + good[132..<260]
+        shifted += Data(count: 32) + good[260...]
+        var highBits = good
+        highBits[4 + 32 * 2] = 1 // to 的高位
+        var badPadding = SafeAddress.setupCalldata({ var r = t; r.data = Data([1]); return r }())
+        badPadding[badPadding.count - 1] = 1
+        let enableModule = Data(Keccak.hash256(Data("enableModule(address)".utf8)).prefix(4)) + Data(count: 32)
+        for d in [Data(), enableModule, Data(repeating: 2, count: 4 + 32 * 12), good.prefix(good.count - 32), good + Data(count: 32),
+                  shifted, highBits, badPadding] {
+            #expect(decode(d) == nil)
+        }
+        // createProxyWithNonce 本身不规范：bytes 偏移不是 0x60、末尾多字节、截断、换了函数。
+        let call = Self.createProxyWithNonce(t)
+        var offset128 = SafeAddress.createProxyWithNonceSelector + t.singleton.abiEncoded + Self.word(128) + t.saltNonce.bigEndianBytes
+        offset128 += Data(count: 32) + Self.word(good.count) + good + Data(count: (32 - good.count % 32) % 32)
+        for d in [offset128, call + Data(count: 32), call.prefix(call.count - 32), Data([0, 0, 0, 0]) + call.dropFirst(4)] {
+            #expect(SafeAddress.registration(chainID: t.chainID, factory: t.proxyFactory, createProxyWithNonce: Data(d)) == nil)
+        }
+    }
+
     @Test func tableShape() {
         #expect(SafeAddress.initCodes.count == 32)
         #expect(Set(SafeAddress.initCodes.map { "\($0.factory)\($0.singleton)" }).count == 32)
