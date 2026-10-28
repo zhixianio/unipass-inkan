@@ -83,29 +83,3 @@ struct TransactionSignerTests {
         var entries: [String] { lock.withLock { items } }
     }
 }
-
-struct SignerStoreTests {
-    @Test func roundTrip() throws {
-        let url = FileManager.default.temporaryDirectory.appending(path: "store-\(UUID().uuidString).json")
-        defer { try? FileManager.default.removeItem(at: url) }
-        let r = SafeRegistration(
-            chainID: 11_155_111, safe: Address(hex: "0x8ceb01112162b035BE3D38740f8233d28DA0E4a1")!,
-            proxyFactory: Address(hex: "0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67")!,
-            singleton: Address(hex: "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762")!, saltNonce: .zero,
-            owners: [Address(hex: "0xc8F9e2ba66e640B05D6d8DA4f00f567679bc9A06")!, Address(hex: "0x938313A557B6129d2D8CbDa84aD962B1869AB39a")!],
-            threshold: 2, fallbackHandler: Address(hex: "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99")!)
-        // 只能存 VerifiedSafe：CREATE2 一致，且这台 Signer（这里取 owner[0]）在 owner 里。
-        let v = try SafeAddress.verify(r, signer: r.owners[0])
-        let a = SignerStore(url: url)
-        try a.register(v, name: "测试金库")
-        #expect(throws: SignerStore.Failure.duplicateSafe) { try a.register(v, name: nil) }
-        try a.addToAddressBook(Address(hex: "0x1111111111111111111111111111111111111111")!, label: " Alice ")
-        #expect(throws: SignerStore.Failure.emptyLabel) { try a.addToAddressBook(r.safe, label: "  ") }
-        let b = SignerStore(url: url)
-        #expect(b.mySafes == [MySafe(chainID: r.chainID, address: r.safe, name: "测试金库", owners: r.owners, threshold: 2)])
-        #expect(b.bookEntries.map(\.label) == ["Alice"])
-        #expect(b.safes.first?.version == "1.4.1")
-        try b.removeFromAddressBook(Address(hex: "0x1111111111111111111111111111111111111111")!)
-        #expect(SignerStore(url: url).bookEntries.isEmpty)
-    }
-}

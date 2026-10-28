@@ -13,6 +13,10 @@ struct HomeView: View {
         NavigationStack {
             List {
                 statusSection
+                // 本地数据没通过验签或读不出来：只读，不参与核对。
+                if model.key != nil, model.storeStatus != .ready {
+                    storeSection
+                }
                 if model.key == nil, model.keyUnreadable {
                     unreadableKeySection
                 } else if model.key == nil {
@@ -20,7 +24,7 @@ struct HomeView: View {
                 } else {
                     scanSection
                     // 还没有 Safe 时，下一步就是配对；有了 Safe 之后配对放在设置里。
-                    if model.store.safes.isEmpty { pairingSection }
+                    if model.store.safes.isEmpty, model.storeStatus == .ready { pairingSection }
                     Section {
                         NavigationLink { SafesView() } label: {
                             LabeledContent { Text(verbatim: "\(model.store.safes.count)") } label: { Label("My Safes", systemImage: "lock.shield") }
@@ -119,6 +123,19 @@ struct HomeView: View {
         }
     }
 
+    private var storeSection: some View {
+        Section {
+            VStack(alignment: .leading, spacing: 6) {
+                Label("My Safes and the address book are read-only", systemImage: "exclamationmark.triangle.fill")
+                    .font(.headline).foregroundStyle(.orange)
+                Text("They are not used to check transactions until this is resolved.")
+                    .font(.callout).foregroundStyle(.secondary)
+            }
+            .padding(.vertical, 4)
+            NavigationLink { StoreStatusView() } label: { Text("Details") }
+        }
+    }
+
     private var scanSection: some View {
         Section {
             // 不用 Label：列表会把 Label 的图标染成强调色，在蓝色按钮上就看不见了，文字还会被挤到右边。
@@ -152,7 +169,7 @@ struct HomeView: View {
         return Section {
             Toggle(isOn: $model.debugIgnoreNetwork) { Text(verbatim: "Ignore network check") }.tint(.orange)
             ForEach(DemoScenario.allCases) { d in
-                Button { model.load(demo: d) } label: { Text(verbatim: "Demo: \(d.rawValue)") }
+                Button { Task { await model.load(demo: d) } } label: { Text(verbatim: "Demo: \(d.rawValue)") }
             }
         } header: {
             Text(verbatim: "Debug (not in release builds)")

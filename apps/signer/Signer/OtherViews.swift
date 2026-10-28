@@ -28,15 +28,19 @@ struct SignatureView: View {
 }
 
 /// 登记 Safe：地址已经按创建参数离线核对，并且本机在 owner 里。列出全部签名人和所需同意人数给用户确认。
-/// `then` 不为空时是"首次见到这个 Safe"（S4）：登记后直接进入那笔交易的确认页。
+/// `then` 不为空时是"首次见到这个 Safe"：登记后直接进入那笔交易的确认页。
+/// 名字必须由用户在这里自己起，不用桌面端给的名字（否则对方可以把自己的 Safe 叫成"Main vault"冒充你的 Safe）。
 struct RegisterView: View {
     let verified: SafeAddress.VerifiedSafe
     let then: EthSignRequest?
     @Environment(AppModel.self) private var model
     @State private var name = ""
     @State private var error: String?
+    @State private var saving = false
 
     private var registration: SafeRegistration { verified.registration }
+    private var trimmedName: String { name.trimmingCharacters(in: .whitespacesAndNewlines) }
+    private var nameTaken: Bool { !trimmedName.isEmpty && model.store.isNameTaken(trimmedName) }
 
     var body: some View {
         NavigationStack {
@@ -51,7 +55,8 @@ struct RegisterView: View {
                 Section {
                     Label("Address verified offline from its creation parameters", systemImage: "checkmark.seal.fill").foregroundStyle(.green)
                     LabeledContent("Network") { Text(verbatim: Display.chain(registration.chainID)) }
-                    AddressView(info: AddressInfo(address: registration.safe, label: registration.name, source: .unknown), hidesSource: true)
+                    // 完整地址（前后各 8 位加粗）；不显示桌面端给的名字。
+                    AddressView(info: AddressInfo(address: registration.safe, label: nil, source: .unknown), hidesSource: true)
                     DisclosureGroup("Technical details") {
                         LabeledContent("Version") { Text(verbatim: "Safe\(verified.initCode.isL2 ? "L2" : "") \(verified.initCode.version)") }
                         // 核对时已经要求是零地址或同版本官方的 CompatibilityFallbackHandler（SafeAddress.verify）。
@@ -76,19 +81,35 @@ struct RegisterView: View {
                     Text("This proves only the signers and required approvals the Safe was created with. If they were changed later, this iPhone does not know about it.")
                 }
                 Section {
-                    TextField("Name (optional)", text: $name)
-                    if let error { Text(error).foregroundStyle(.red) }
-                    Button(then == nil ? "Register this Safe" : "Add and continue") {
-                        do { try model.register(verified, name: name.isEmpty ? nil : name, then: then) } catch {
-                            self.error = "\(error)"
-                        }
+                    TextField("Name", text: $name)
+                        .autocorrectionDisabled()
+                    if nameTaken {
+                        Text("A Safe or an address book entry already has this name. Use a different one.").foregroundStyle(.red)
                     }
-                    .buttonStyle(.borderedProminent)
+                    if let error { Text(error).foregroundStyle(.red) }
+                    Button(then == nil ? "Register this Safe" : "Add and continue") { save() }
+                        .buttonStyle(.borderedProminent)
+                        .disabled(trimmedName.isEmpty || nameTaken || saving)
+                } header: {
+                    Text("Name this Safe")
+                } footer: {
+                    Text("Type a name on this iPhone. The name sent by UniPass Inkan Desktop is not used. It must differ from your other Safes and address book entries. Saving asks for Face ID.")
                 }
             }
             .navigationTitle(then == nil ? "Register Safe" : "New Safe")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Cancel") { model.route = nil } } }
+        }
+    }
+
+    private func save() {
+        saving = true
+        error = nil
+        Task {
+            defer { saving = false }
+            do { try await model.register(verified, name: trimmedName, then: then) } catch {
+                if !AppModel.isCancellation(error) { self.error = AppModel.describe(error) }
+            }
         }
     }
 
@@ -112,10 +133,12 @@ struct RegisterView: View {
 
 struct SafesView: View {
     @Environment(AppModel.self) private var model
-    @State private var refresh = 0
+    @State private var error: String?
 
     var body: some View {
+        let _ = model.storeRevision
         List {
+            if let error { Text(error).foregroundStyle(.red) }
             ForEach(model.store.safes, id: \.self) { s in
                 VStack(alignment: .leading, spacing: 4) {
                     AddressView(info: AddressInfo(address: Address(hex: s.address)!, label: s.name, source: .mySafe), hidesSource: true, compact: true)
@@ -124,8 +147,11 @@ struct SafesView: View {
                 }
                 .swipeActions {
                     Button("Remove", role: .destructive) {
-                        try? model.store.removeSafe(chainID: s.chainID, address: Address(hex: s.address)!)
-                        refresh += 1
+                        Task {
+                            do { try await model.removeSafe(s) } catch {
+                                if !AppModel.isCancellation(error) { self.error = AppModel.describe(error) }
+                            }
+                        }
                     }
                 }
             }
@@ -133,7 +159,6 @@ struct SafesView: View {
                 Text("No Safes yet. Scan a Safe code or a signing request from UniPass Inkan Desktop.").foregroundStyle(.secondary)
             }
         }
-        .id(refresh)
         .navigationTitle("My Safes")
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -141,16 +166,21 @@ struct SafesView: View {
 
 struct AddressBookView: View {
     @Environment(AppModel.self) private var model
-    @State private var refresh = 0
+    @State private var error: String?
 
     var body: some View {
+        let _ = model.storeRevision
         List {
+            if let error { Text(error).foregroundStyle(.red) }
             ForEach(model.store.addressBook, id: \.self) { b in
                 AddressView(info: AddressInfo(address: Address(hex: b.address)!, label: b.label, source: .addressBook), hidesSource: true, compact: true)
                     .swipeActions {
                         Button("Remove", role: .destructive) {
-                            try? model.store.removeFromAddressBook(Address(hex: b.address)!)
-                            refresh += 1
+                            Task {
+                                do { try await model.removeFromAddressBook(b) } catch {
+                                    if !AppModel.isCancellation(error) { self.error = AppModel.describe(error) }
+                                }
+                            }
                         }
                     }
             }
@@ -158,7 +188,6 @@ struct AddressBookView: View {
                 Text("New addresses are added here only after you confirm them on this iPhone.").foregroundStyle(.secondary)
             }
         }
-        .id(refresh)
         .navigationTitle("Address book")
         .navigationBarTitleDisplayMode(.inline)
     }

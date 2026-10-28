@@ -23,6 +23,7 @@
 - **状态**：大图标加一句话。离线时"已离线，可以签名"，并提醒签名器不读取蓝牙状态、请在设置里确认已关闭；Wi-Fi 开着但没连上网络时多一行提醒（它随时可能自动连上）。联网时"已联网，不能签名"，下面列出还连着的连接和怎么断开（Wi-Fi、蜂窝数据、数据线）。"联网详情"里是每种连接的状态和触发联网的网卡地址。
 - **下一步**：还没有密钥时是"生成签名密钥"；有了密钥是醒目的"扫描二维码"按钮；还没有加入任何 Safe 时，多一张"下一步：与桌面端配对"的卡片。有密钥条目却读不出来时（例如锁屏时被预热启动）只有"重试"，不给"生成签名密钥"：已有条目时生成会被拒绝，绝不覆盖。
 - 我的 Safe、地址簿（带数量）。
+- "我的 Safe"和地址簿没通过验签或读不出来时，多一张"目前只读"的卡片，点进去看原因、文件里的内容和能做的事（见下面"本地数据"）。
 - 右上角齿轮进设置。
 
 ### 设置
@@ -125,9 +126,27 @@
 
 "我的 Safe"和地址簿存在 Application Support 里的一个 JSON 文件：原子写入，锁屏时不可读（`NSFileProtectionComplete`），排除出备份。数据量很小，一个 JSON 文件最容易审计；不用 SwiftData / Core Data，因为它们带着同步机制。
 
-- **我的 Safe**：只能通过加入的流程进来。用 CREATE2 按创建参数离线重算地址（只认 Safe 官方的工厂合约和实现合约），并确认本机是签名人；地址对不上、不是官方部署或本机不是签名人，都直接拒绝。加入页写明：这只能证明 Safe **创建时**的签名人和所需同意人数，之后的修改签名器不知道。
-- **第一次签名时加入**：扫到带 Safe 信息的签名请求（`unipass-sign-request`）时，Safe 已加入就忽略那部分；没加入、且请求签的正是这个 Safe，就先做上面的核对，显示"首次见到这个 Safe"，你确认后加入，再进入核对交易页。其它情况只看请求本身，不在"我的 Safe"里的 Safe 一律拒签。
+- **我的 Safe**：只能通过加入的流程进来。用 CREATE2 按创建参数离线重算地址（只认 Safe 官方的工厂合约和实现合约），并确认本机是签名人；地址对不上、不是官方部署或本机不是签名人，都直接拒绝。加入页写明：这只能证明 Safe **创建时**的签名人和所需同意人数，之后的修改签名器不知道。加入页完整显示 Safe 地址（前后各 8 位加粗）。
+- **名字由你在签名器上起**：桌面端发来的名字不用、也不预填，不起名不能加入。名字去掉首尾空白、不分大小写后，不能和已有的 Safe 名、地址簿名重复（地址簿起名也一样）。否则对方可以把自己的 Safe 叫成"Main vault"，冒充你的 Safe。
+- **第一次签名时加入**：扫到带 Safe 信息的签名请求（`unipass-sign-request`）时，Safe 已加入就忽略那部分；没加入、且请求签的正是这个 Safe，就先做上面的核对，显示"首次见到这个 Safe"，你起名、确认后加入，再进入核对交易页。其它情况只看请求本身，不在"我的 Safe"里的 Safe 一律拒签。
 - **地址簿**：新地址只有在核对页上你确认、起名之后才会加入；可以删除。
+
+**改动要签名**。拿到解锁手机的人不能悄悄改这些数据（例如把攻击者地址以"冷钱包"的名字加进地址簿，之后转给它就判绿）：
+
+- 加入、删除 Safe 和地址簿条目，每次都用签名密钥给**整份数据**签名，SE 密钥会弹 Face ID；签名和数据存在一起，加载时验签。签整份而不是逐条签：逐条签挡不住"删掉一条"，也挡不住把别处签过的条目拼进来。
+- 签的消息是 `tag(32) ‖ 0x00 ‖ sha256(tag ‖ payload)`，`tag` 是 ASCII "UniPass Inkan signer local data" 加一个 0x00，`payload` 是文件里存的那段 JSON 原样的字节（不重新编码，不需要规范化）。这把密钥也是 Safe 的签名人，所以这份签名不能被当成 Safe 签名：合约要求签名消息是 `authenticatorData ‖ sha256(clientDataJSON)`，并且 `authenticatorData` 第 33 个字节的 UV 位置位；这条消息固定 65 字节，能对上的拆分只有前 33 字节，它的第 33 个字节恒为 0，合约必然拒绝；最后 32 字节也不可能是 clientDataJSON 的哈希。测试 `LocalDataSignatureTests` 用合约的验签条件逐条验证，并用真正的 Safe 签名做对照。
+- 加载时只有验签通过（或者还没有数据文件）才可用、可改。其余情况一律**只读**：不参与核对交易（这些 Safe 的签名请求会被拒签，这些地址也不会被认出来），也绝不覆盖原文件：
+  - 旧版本存的、没有签名的数据（升级前就有的数据都是这种）；
+  - 别的密钥签的（原来的签名密钥删掉后又生成了新的，或者有人换了文件）；
+  - 签名后被改过；
+  - 有签名，但签名密钥读不出来，无法验签；
+  - 文件读不出来或解析不了（例如锁屏时读）。
+- 只读时首页有一张卡片，点进去列出文件里的内容，可以做的事各写清后果，不给建议：
+  - **签名并使用这些数据**：用本机当前的密钥签名（Face ID），之后开始使用。签名人里没有本机签名人地址的 Safe 不保留（"我的 Safe"只收本机是签名人的 Safe），会在列表里标出来；地址簿全部保留。
+  - **放到一边，从空数据开始**：先过设备密码验证（Face ID 或锁屏密码），文件改名为 `signer-store.set-aside-<时间>.json` 留在原目录，不删除；之后从空数据开始，Safe 要重新加入。
+  - 签名密钥读不出来或文件读不出来时还有**重试**。
+- 调试用的软件密钥（只在模拟器和 DEBUG 构建里）签名不弹 Face ID。Release 构建读不出软件密钥，所以用它签过的数据在 Release 里是"无法验签"。
+- 能挡住的是"改文件"和"拿到解锁手机的人直接在界面上改"；挡不住把整个文件换回**以前签过的旧版本**（例如恢复一条你删掉的地址簿条目），因为签名里没有单调计数器。
 
 ### 无网络检查
 
@@ -163,13 +182,14 @@ apps/signer/scripts/check-no-network.sh
 | `project.yml` | XcodeGen 工程描述（`Signer.xcodeproj` 由它生成，不提交） |
 | `Config/` | Team ID 和 Bundle ID（`Signer.xcconfig` + 自己的 `Local.xcconfig`，见 BUILDING.md） |
 | `Signer/AppModel.swift` | App 状态：密钥、联网轮询、本地数据；扫码后分流；签名入口 |
-| `Signer/HomeView.swift`、`SettingsView.swift`、`ScanView.swift`、`ConfirmView.swift`、`OtherViews.swift`、`PolicyPicker.swift`、`Components.swift` | 首页、设置、扫码、核对交易 / 拒签、签名结果 / 加入 Safe / 我的 Safe / 地址簿 / 配对、Face ID 设置、地址显示等组件 |
+| `Signer/HomeView.swift`、`SettingsView.swift`、`ScanView.swift`、`ConfirmView.swift`、`OtherViews.swift`、`StoreStatusView.swift`、`PolicyPicker.swift`、`Components.swift` | 首页、设置、扫码、核对交易 / 拒签、签名结果 / 加入 Safe / 我的 Safe / 地址簿 / 配对、本地数据只读时的说明页、Face ID 设置、地址显示等组件 |
 | `Signer/Localizable.xcstrings`、`Signer/InfoPlist.xcstrings` | 界面文字、App 名和权限说明（英文、简体中文）；交易说明和规则文字在 core 的 String Catalog 里 |
 | `Signer/DemoScenarios.swift` | 只在 DEBUG 构建里：演示场景 |
 | `SignerKit/` | 本地 Swift package，依赖 `../../../core`（解码、规则、二维码格式都在 core） |
 | `SignerKit/Sources/SignerKit/TransactionSigner.swift` | 签名：只接受 `SignableTransaction`；Face ID → 再查联网 → 安全芯片 |
 | `SignerKit/Sources/SignerKit/SignerProxy.swift` | 离线算本机的签名地址（WebAuthn signer proxy）、配对数据。内置的字节码来自 safe-modules，这个文件沿用 LGPL-3.0-only（见 NOTICE），所以不放进 core |
-| `SignerKit/Sources/SignerKit/SignerStore.swift` | "我的 Safe"和地址簿 |
+| `SignerKit/Sources/SignerKit/SignerStore.swift` | "我的 Safe"和地址簿：签名存储、加载时验签、只读状态 |
+| `SignerKit/Sources/SignerKit/LocalDataSignature.swift` | 本地数据签名的消息格式（和 Safe 签名域分隔）、用 Face ID 签名 |
 | `SignerKit/Sources/SignerKit/OfflineCheck.swift`、`SigningKey.swift`、`KeyStore.swift`、`QRCode.swift` | 联网判断、安全芯片 / 调试软件密钥、Keychain、二维码 |
 | `scripts/check-no-network.sh` | 无网络检查 |
 | `scripts/verify-device-signature.py` | 用 OpenSSL（Python `cryptography`）独立复验一份真机签名 |

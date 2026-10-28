@@ -115,8 +115,10 @@ struct DeleteUnreadableKeyView: View {
 
     /// 知道签名人地址时只列签名人里有它的 Safe（之前删过密钥的话，"我的 Safe"里可能还有旧密钥的 Safe）；不知道时列出全部。
     private var safes: [SignerStore.SafeRecord] {
-        guard let signer = model.lastSignerAddress else { return model.store.safes }
-        return model.store.safes.filter { $0.owners.contains { Address(hex: $0) == signer } }
+        // 密钥读不出来时无法验签，数据在"只读"里；这里只是列给用户看。
+        let all = model.storeStatus == .ready ? model.store.safes : model.store.unverifiedContents?.safes ?? []
+        guard let signer = model.lastSignerAddress else { return all }
+        return all.filter { $0.owners.contains { Address(hex: $0) == signer } }
     }
 
     var body: some View {

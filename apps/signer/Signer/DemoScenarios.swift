@@ -37,22 +37,21 @@ enum DemoScenario: String, CaseIterable, Identifiable {
     static let usdc = Address(hex: "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238")!
     static let safeMigration = Address(hex: "0x526643F69b81B008F46d95CD5ced5eC0edFFDaC6")!
 
-    func prepare(store: SignerStore, identity: SignerIdentity) {
+    /// 演示数据一次改完，只签一次名。
+    func prepare(_ c: inout SignerStore.Changes, identity: SignerIdentity) {
         let safe = Self.testSafe(identity)
         if self == .registration || self == .firstUse {
-            try? store.removeSafe(chainID: safe.chainID, address: safe.safe)
-        } else if !store.mySafes.contains(where: { $0.address == safe.safe }) {
-            try? store.register(try! SafeAddress.verify(safe, signer: identity.signerProxy), name: "Test vault")
+            c.removeSafe(chainID: safe.chainID, address: safe.safe)
+        } else {
+            try? c.register(try! SafeAddress.verify(safe, signer: identity.signerProxy), name: "Test vault")
         }
         // ownerLookalike：Test EOA 只是 Safe 的签名人、不在地址簿里，R05 照样要认出仿冒它的地址。
         if self == .ownerLookalike {
-            try? store.removeFromAddressBook(Self.testEOA)
-        } else if !store.bookEntries.contains(where: { $0.address == Self.testEOA }) {
-            try? store.addToAddressBook(Self.testEOA, label: "Test EOA")
+            c.removeFromAddressBook(Self.testEOA)
+        } else {
+            try? c.addToAddressBook(Self.testEOA, label: "Test EOA")
         }
-        if !store.bookEntries.contains(where: { $0.address == Self.alice }) {
-            try? store.addToAddressBook(Self.alice, label: "Alice")
-        }
+        try? c.addToAddressBook(Self.alice, label: "Alice")
     }
 
     /// 首尾各 4 位和 `a` 相同、中间全换掉的仿冒地址。

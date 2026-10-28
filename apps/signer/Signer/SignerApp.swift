@@ -13,7 +13,7 @@ struct SignerApp: App {
                 .task {
                     // 截图 / 演示：`-demoScenario red` 之类的启动参数。
                     if let s = UserDefaults.standard.string(forKey: "demoScenario"), let d = DemoScenario(rawValue: s) {
-                        model.load(demo: d)
+                        await model.load(demo: d)
                     }
                 }
                 #endif

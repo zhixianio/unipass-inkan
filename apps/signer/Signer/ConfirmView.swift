@@ -43,7 +43,7 @@ struct ConfirmView: View {
             }
             .sheet(item: Binding(get: { addingAddress.map(IdentifiedAddress.init) }, set: { addingAddress = $0?.address })) { item in
                 AddToBookSheet(address: item.address) { label in
-                    try model.addToAddressBook(item.address, label: label, reassessing: ur)
+                    try await model.addToAddressBook(item.address, label: label, reassessing: ur)
                 }
             }
         }
@@ -452,10 +452,15 @@ struct OwnerChangeView: View {
 
 struct AddToBookSheet: View {
     let address: Address
-    let save: (String) throws -> Void
+    let save: (String) async throws -> Void
+    @Environment(AppModel.self) private var model
     @State private var label = ""
     @State private var error: String?
+    @State private var saving = false
     @Environment(\.dismiss) private var dismiss
+
+    private var trimmed: String { label.trimmingCharacters(in: .whitespacesAndNewlines) }
+    private var nameTaken: Bool { !trimmed.isEmpty && model.store.isNameTaken(trimmed) }
 
     var body: some View {
         NavigationStack {
@@ -467,7 +472,12 @@ struct AddToBookSheet: View {
                 }
                 Section {
                     TextField("Name", text: $label)
+                    if nameTaken {
+                        Text("A Safe or an address book entry already has this name. Use a different one.").foregroundStyle(.red)
+                    }
                     if let error { Text(error).foregroundStyle(.red) }
+                } footer: {
+                    Text("Saving asks for Face ID.")
                 }
             }
             .navigationTitle("Add to address book")
@@ -476,14 +486,19 @@ struct AddToBookSheet: View {
                 ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() } }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
-                        do {
-                            try save(label)
-                            dismiss()
-                        } catch {
-                            self.error = "\(error)"
+                        saving = true
+                        error = nil
+                        Task {
+                            defer { saving = false }
+                            do {
+                                try await save(trimmed)
+                                dismiss()
+                            } catch {
+                                if !AppModel.isCancellation(error) { self.error = AppModel.describe(error) }
+                            }
                         }
                     }
-                    .disabled(label.trimmingCharacters(in: .whitespaces).isEmpty)
+                    .disabled(trimmed.isEmpty || nameTaken || saving)
                 }
             }
         }

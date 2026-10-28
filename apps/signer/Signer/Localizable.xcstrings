@@ -79,6 +79,16 @@
         }
       }
     },
+    "A Safe or an address book entry already has this name. Use a different one.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已有 Safe 或地址簿条目用了这个名字，请换一个。"
+          }
+        }
+      }
+    },
     "A cable or adapter is connected: unplug it.": {
       "localizations": {
         "zh-Hans": {
@@ -125,6 +135,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "地址簿"
+          }
+        }
+      }
+    },
+    "Address book in the file": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "文件里的地址簿"
           }
         }
       }
@@ -465,6 +485,16 @@
         }
       }
     },
+    "Details": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "详情"
+          }
+        }
+      }
+    },
     "Device name": {
       "localizations": {
         "zh-Hans": {
@@ -501,6 +531,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "完成"
+          }
+        }
+      }
+    },
+    "Enter a name.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请输入名字。"
           }
         }
       }
@@ -805,6 +845,66 @@
         }
       }
     },
+    "My Safes and address book": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“我的 Safe”和地址簿"
+          }
+        }
+      }
+    },
+    "My Safes and the address book are read-only": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“我的 Safe”和地址簿目前只读"
+          }
+        }
+      }
+    },
+    "My Safes and the address book are read-only right now. See the home screen.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“我的 Safe”和地址簿现在是只读的，详见首页。"
+          }
+        }
+      }
+    },
+    "My Safes and the address book were changed after they were signed. They may have been tampered with.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“我的 Safe”和地址簿在签名之后被改过，可能被人篡改了。"
+          }
+        }
+      }
+    },
+    "My Safes and the address book were saved by an earlier version without a signature, so this iPhone cannot tell whether they were changed since.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“我的 Safe”和地址簿是旧版本保存的，没有签名，这台 iPhone 无法判断之后有没有被改过。"
+          }
+        }
+      }
+    },
+    "My Safes and the address book were signed by a different key, not this iPhone's current signing key. This happens after the signing key was deleted and a new one created, or if someone replaced the file.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“我的 Safe”和地址簿是另一把密钥签的，不是这台 iPhone 当前的签名密钥。删除签名密钥后又生成了新密钥时会这样，有人替换了数据文件时也会这样。"
+          }
+        }
+      }
+    },
     "Name": {
       "localizations": {
         "zh-Hans": {
@@ -815,12 +915,12 @@
         }
       }
     },
-    "Name (optional)": {
+    "Name this Safe": {
       "localizations": {
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "名字（可选）"
+            "value": "给这个 Safe 起名"
           }
         }
       }
@@ -1055,6 +1155,16 @@
         }
       }
     },
+    "Reads the signing key and the file again, for example after unlocking this iPhone.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重新读取签名密钥和数据文件，例如在解锁这台 iPhone 之后。"
+          }
+        }
+      }
+    },
     "Recorded the last time the key could be read.": {
       "localizations": {
         "zh-Hans": {
@@ -1195,12 +1305,42 @@
         }
       }
     },
+    "Safes in the file": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "文件里的 Safe"
+          }
+        }
+      }
+    },
     "Save": {
       "localizations": {
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "保存"
+          }
+        }
+      }
+    },
+    "Save the change to My Safes and the address book": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "保存对“我的 Safe”和地址簿的改动"
+          }
+        }
+      }
+    },
+    "Saving asks for Face ID.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "保存时要用 Face ID 确认。"
           }
         }
       }
@@ -1245,6 +1385,16 @@
         }
       }
     },
+    "Set aside and start empty": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "放到一边，从空数据开始"
+          }
+        }
+      }
+    },
     "Settings": {
       "localizations": {
         "zh-Hans": {
@@ -1271,6 +1421,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "把这个码给 UniPass Inkan 桌面端扫。"
+          }
+        }
+      }
+    },
+    "Sign and use this data": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "签名并使用这些数据"
           }
         }
       }
@@ -1365,6 +1525,26 @@
         }
       }
     },
+    "Signs the data above with this iPhone's signing key (Face ID) and uses it from now on. Check that every Safe and address is one you added.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "用这台 iPhone 的签名密钥给上面的数据签名（要用 Face ID），之后开始使用。请确认每个 Safe 和地址都是你自己加的。"
+          }
+        }
+      }
+    },
+    "Signs the data above with this iPhone's signing key (Face ID) and uses it from now on. Check that every Safe and address is one you added. Safes that do not have this iPhone as a signer are not kept.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "用这台 iPhone 的签名密钥给上面的数据签名（要用 Face ID），之后开始使用。请确认每个 Safe 和地址都是你自己加的。签名人里没有本机的 Safe 不会保留。"
+          }
+        }
+      }
+    },
     "Skipped an unreadable frame.": {
       "localizations": {
         "zh-Hans": {
@@ -1391,6 +1571,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "被授权方"
+          }
+        }
+      }
+    },
+    "Stop using the saved Safes and address book": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "停用已保存的 Safe 和地址簿"
           }
         }
       }
@@ -1505,6 +1695,26 @@
         }
       }
     },
+    "The file is renamed and kept on this iPhone, but no longer used. My Safes and the address book start empty, and each Safe has to be added again. Face ID or the passcode is required first.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "数据文件会改名保留在这台 iPhone 上，但不再使用。“我的 Safe”和地址簿从空开始，每个 Safe 都要重新加入。操作前要先通过 Face ID 或锁屏密码验证。"
+          }
+        }
+      }
+    },
+    "The file with My Safes and the address book could not be read.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "保存“我的 Safe”和地址簿的文件读不出来。"
+          }
+        }
+      }
+    },
     "The key can't be exported and is lost if this iPhone is erased or replaced, so your Safe needs other signers. Either way, turn on Stolen Device Protection in Settings › Face ID & Passcode.": {
       "localizations": {
         "zh-Hans": {
@@ -1595,6 +1805,26 @@
         }
       }
     },
+    "The signing key could not be read, so My Safes and the address book cannot be checked.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "签名密钥读不出来，无法核对“我的 Safe”和地址簿。"
+          }
+        }
+      }
+    },
+    "They are not used to check transactions until this is resolved.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "处理之前，核对交易时不会用到它们。"
+          }
+        }
+      }
+    },
     "This QR code is not a signing request or a Safe code from UniPass Inkan Desktop.": {
       "localizations": {
         "zh-Hans": {
@@ -1615,6 +1845,16 @@
         }
       }
     },
+    "This Safe is already in My Safes.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这个 Safe 已经在“我的 Safe”里。"
+          }
+        }
+      }
+    },
     "This Safe paid someone while it was being created. UniPass Inkan Desktop never creates a Safe this way, so it cannot be added.": {
       "localizations": {
         "zh-Hans": {
@@ -1631,6 +1871,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "这个 Safe 创建时额外执行了一段调用，可能借此加了这里看不到的模块或签名人。不能添加。"
+          }
+        }
+      }
+    },
+    "This address is already in the address book.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这个地址已经在地址簿里。"
           }
         }
       }
@@ -1661,6 +1911,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "本机没有任何网络连接。签名器不读取蓝牙状态（为了不带任何通信框架），请在设置里确认蓝牙已关闭。"
+          }
+        }
+      }
+    },
+    "This iPhone is not a signer": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "本机不是签名人"
           }
         }
       }
@@ -1875,6 +2135,16 @@
         }
       }
     },
+    "Type a name on this iPhone. The name sent by UniPass Inkan Desktop is not used. It must differ from your other Safes and address book entries. Saving asks for Face ID.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在这台 iPhone 上输入名字，不使用 UniPass Inkan 桌面端发来的名字。名字不能和其他 Safe、地址簿条目重复。保存时要用 Face ID 确认。"
+          }
+        }
+      }
+    },
     "Type the characters asked for above to enable signing.": {
       "localizations": {
         "zh-Hans": {
@@ -1961,6 +2231,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "不支持的网络"
+          }
+        }
+      }
+    },
+    "Until this is resolved they are read-only and not used to check transactions: signing requests for these Safes are refused, and these addresses are not recognized.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "处理之前它们是只读的，核对交易时不会用到：这些 Safe 的签名请求会被拒签，这些地址也不会被认出来。"
           }
         }
       }

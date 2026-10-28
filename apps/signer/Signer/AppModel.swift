@@ -75,9 +75,12 @@ final class AppModel {
             keyUnreadable = false
             rememberSignerAddress()
         } catch {
+            key = nil
+            policy = nil
             keyError = "\(error)"
             keyUnreadable = true
         }
+        reloadStore()
     }
 
     var isOffline: Bool {
@@ -118,6 +121,7 @@ final class AppModel {
         } catch {
             keyError = "\(error)"
         }
+        reloadStore()
     }
 
     /// 设置页"删除密钥"（两次确认之后）。密钥在安全芯片里，删掉就找不回来；已登记的 Safe 和地址簿保留。
@@ -152,6 +156,7 @@ final class AppModel {
         keyError = nil
         keyUnreadable = false
         UserDefaults.standard.removeObject(forKey: Self.signerAddressKey)
+        reloadStore()
     }
 
     /// 上次读出的签名人地址。密钥读不出来时算不出地址，删除确认页靠它告诉用户丢的是哪个签名人。
@@ -231,20 +236,88 @@ final class AppModel {
         }
     }
 
+    // MARK: 本地数据（我的 Safe、地址簿）
+
+    /// 数据改动后加一，界面靠它刷新（`SignerStore` 本身不是 Observable）。
+    private(set) var storeRevision = 0
+
+    var storeStatus: SignerStore.Status {
+        _ = storeRevision
+        return store.status
+    }
+
+    /// 签名密钥变了之后用新的公钥重新验签。
+    func reloadStore() {
+        store.reload(publicKey: key?.publicKey)
+        storeRevision += 1
+    }
+
+    /// 改动本地数据要先签名（SE 密钥弹 Face ID）。没有签名密钥就不能改。
+    private func localSigner() throws -> LocalDataSigner {
+        guard let key else { throw TransactionSigner.Failure.noKey }
+        return .faceID(key: key, policy: policy, reason: String(localized: "Save the change to My Safes and the address book"))
+    }
+
+    private func changeStore(_ body: (LocalDataSigner) async throws -> Void) async throws {
+        defer { storeRevision += 1 }
+        try await body(try localSigner())
+    }
+
     /// 确认页上把新地址加入地址簿后，重新评估同一个请求。
-    func addToAddressBook(_ address: Address, label: String, reassessing ur: UR?) throws {
-        try store.addToAddressBook(address, label: label)
+    func addToAddressBook(_ address: Address, label: String, reassessing ur: UR?) async throws {
+        try await changeStore { try await store.addToAddressBook(address, label: label, signer: $0) }
         if let ur { route = .confirm(RiskEngine(context: context()).assess(ur: ur), ur) }
     }
 
-    /// 登记；带着签名请求时（S4）登记后直接进入这笔交易的确认页。
-    func register(_ v: SafeAddress.VerifiedSafe, name: String?, then request: EthSignRequest?) throws {
-        try store.register(v, name: name)
+    /// 登记；带着签名请求时，登记后直接进入这笔交易的确认页。名字由用户在本机输入。
+    func register(_ v: SafeAddress.VerifiedSafe, name: String, then request: EthSignRequest?) async throws {
+        try await changeStore { try await store.register(v, name: name, signer: $0) }
         if let request {
             route = .confirm(RiskEngine(context: context()).assess(signRequest: request), request.ur)
         } else {
             route = nil
         }
+    }
+
+    func removeSafe(_ s: SignerStore.SafeRecord) async throws {
+        try await changeStore { try await store.removeSafe(chainID: s.chainID, address: Address(hex: s.address)!, signer: $0) }
+    }
+
+    func removeFromAddressBook(_ b: SignerStore.BookRecord) async throws {
+        try await changeStore { try await store.removeFromAddressBook(Address(hex: b.address)!, signer: $0) }
+    }
+
+    /// 只读的数据：用户看过后用本机当前的密钥签名并开始使用（签名人里没有本机的 Safe 不留）。
+    func adoptStoreData() async throws {
+        guard let identity else { throw TransactionSigner.Failure.noKey }
+        try await changeStore { try await store.adopt(signer: $0, signerAddress: identity.signerProxy) }
+    }
+
+    /// 只读的数据：文件改名放到一边（不删除），从空数据开始。先过设备密码验证（Face ID 或锁屏密码）。
+    func setAsideStoreData() async throws {
+        let context = LAContext()
+        _ = try await context.evaluatePolicy(.deviceOwnerAuthentication,
+                                             localizedReason: String(localized: "Stop using the saved Safes and address book"))
+        defer { storeRevision += 1 }
+        try store.setAside()
+    }
+
+    static func describe(_ e: Error) -> String {
+        switch e {
+        case SignerStore.Failure.duplicateSafe: String(localized: "This Safe is already in My Safes.")
+        case SignerStore.Failure.duplicateAddress: String(localized: "This address is already in the address book.")
+        case SignerStore.Failure.emptyLabel, SignerStore.Failure.emptyName: String(localized: "Enter a name.")
+        case SignerStore.Failure.duplicateName: String(localized: "A Safe or an address book entry already has this name. Use a different one.")
+        case SignerStore.Failure.readOnly: String(localized: "My Safes and the address book are read-only right now. See the home screen.")
+        case TransactionSigner.Failure.noKey: String(localized: "Create a signing key first.")
+        default: "\(e)"
+        }
+    }
+
+    /// Face ID 被取消时不提示错误。
+    static func isCancellation(_ e: Error) -> Bool {
+        guard let e = e as? LAError else { return false }
+        return [.userCancel, .systemCancel, .appCancel].contains(e.code)
     }
 
     // MARK: 签名
@@ -267,11 +340,12 @@ final class AppModel {
 
     #if DEBUG
     /// 截图和模拟器演示用：直接注入一个场景（只在 DEBUG 构建里存在）。
-    func load(demo: DemoScenario) {
+    func load(demo: DemoScenario) async {
         if key == nil { generateKey(policy: .anyEnrolled) }
         debugIgnoreNetwork = demo != .networkOnline
-        demo.prepare(store: store, identity: identity!)
-        if let ur = demo.ur(identity: identity!) { handleScanned(ur) }
+        let identity = identity!
+        try? await changeStore { try await store.change(signer: $0) { demo.prepare(&$0, identity: identity) } }
+        if let ur = demo.ur(identity: identity) { handleScanned(ur) }
     }
     #endif
 }
