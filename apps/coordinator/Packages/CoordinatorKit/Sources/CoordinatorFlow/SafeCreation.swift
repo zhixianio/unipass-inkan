@@ -108,6 +108,12 @@ public enum ExistingSafe {
         case addressMismatch
         /// 创建时还执行了额外的初始化调用（setup 的 to / data）。
         case extraSetupCall
+        /// 创建时带了付款（setup 的 paymentToken / payment / paymentReceiver 不为零）。
+        case setupPayment
+        /// 创建时的 fallback handler 不是零地址，也不是同版本官方的 CompatibilityFallbackHandler。
+        case unofficialFallbackHandler
+        /// 不是支持的网络。
+        case unsupportedNetwork
         case ownersChanged
         case thresholdChanged
         case hasModules
@@ -181,12 +187,30 @@ public enum ExistingSafe {
     public static let fallbackHandlerSlot = Keccak.hash256(Data("fallback_manager.handler.address".utf8))
     public static let singletonSlot = Data(count: 32)
 
+    /// 创建参数本身的问题：和签名器登记时是同一份核对（core 的 `SafeAddress.verify`），在这里先拒绝，不等到签名器那一步。
+    static func creationProblem(_ r: SafeRegistration) -> Problem? {
+        do {
+            _ = try SafeAddress.verify(r)
+            return nil
+        } catch let e as SafeAddress.VerificationError {
+            switch e {
+            case .unsupportedChain: return .unsupportedNetwork
+            case .unknownFactoryOrSingleton: return .unsupportedFactoryOrVersion
+            case .addressMismatch: return .addressMismatch
+            case .setupCall: return .extraSetupCall
+            case .setupPayment: return .setupPayment
+            case .unofficialFallbackHandler: return .unofficialFallbackHandler
+            case .signerNotAnOwner: return .signerNotOwner
+            }
+        } catch {
+            return .setupNotDecodable
+        }
+    }
+
     /// 能不能添加。返回第一个不满足的条件；全部满足返回 nil。
     /// `onChain` 是区块链节点读的，`service` 是 Safe 交易服务 `/safes/{address}/` 报的；两边必须一致（不只信一个来源）。
     public static func problem(_ r: SafeRegistration, onChain: OnChain, service: OnChain, signers: Set<Address>) -> Problem? {
-        guard SafeAddress.initCode(factory: r.proxyFactory, singleton: r.singleton) != nil else { return .unsupportedFactoryOrVersion }
-        guard SafeAddress.compute(r) == r.safe else { return .addressMismatch }
-        guard r.to == .zero, r.data.isEmpty else { return .extraSetupCall }
+        if let p = creationProblem(r) { return p }
         guard disagreements(onChain, service).isEmpty else { return .sourcesDisagree }
         guard onChain.singleton == r.singleton else { return .singletonChanged }
         guard Set(onChain.owners) == Set(r.owners), onChain.owners.count == r.owners.count else { return .ownersChanged }

@@ -659,6 +659,12 @@ final class AddSafeModel {
             L("The creation data doesn't produce this address. Don't use this Safe here.")
         case .extraSetupCall:
             L("This Safe ran an extra setup step when it was created. The offline signer can't check what that step did, so it can't be added.")
+        case .setupPayment:
+            L("This Safe was set up to pay someone from its own funds when it was created, which normal Safe creation never does, so it can't be added.")
+        case .unofficialFallbackHandler:
+            L("This Safe was created with a fallback handler that isn't Safe's official one, and that contract could approve signatures on the Safe's behalf, so it can't be added.")
+        case .unsupportedNetwork:
+            L("This Safe is on a network this app doesn't support.")
         case .ownersChanged:
             L("This Safe's signers have changed since it was created. The offline signer can only trust the signers it was created with, so it can't be added.")
         case .thresholdChanged:
