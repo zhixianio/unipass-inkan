@@ -128,6 +128,60 @@ public enum SafeAddress {
         return setupSelector + head + tail
     }
 
+    /// `Safe.setup(...)` 的调用数据 → 创建参数（链、Safe 地址、factory、singleton、saltNonce 由调用方给）。
+    /// 只接受规范编码：按解出的参数用 `setupCalldata` 重新编码必须逐字节一致；不是 `setup` 或编码不规范时返回 nil。
+    /// 解出来的参数要再过 `verify(_:)` 才说明这个 Safe 可以用。
+    public static func registration(chainID: UInt64, safe: Address, factory: Address, singleton: Address, saltNonce: UInt256,
+                                    setupCalldata calldata: Data, name: String? = nil) -> SafeRegistration? {
+        let b = [UInt8](calldata)
+        guard b.count >= 4 + 8 * 32, Data(b[0..<4]) == setupSelector else { return nil }
+        func word(_ i: Int) -> Data? {
+            let start = 4 + 32 * i
+            return b.count >= start + 32 ? Data(b[start..<(start + 32)]) : nil
+        }
+        func int(_ i: Int) -> Int? {
+            guard let w = word(i), let n = UInt256(bigEndian: w), n.words[1...].allSatisfy({ $0 == 0 }), n.words[0] < 1 << 20 else { return nil }
+            return Int(n.words[0])
+        }
+        func address(_ w: Data?) -> Address? {
+            guard let w, w.prefix(12).allSatisfy({ $0 == 0 }) else { return nil }
+            return Address(bytes: w.suffix(20))
+        }
+        guard let ownersOffset = int(0), let threshold = int(1), let to = address(word(2)), let dataOffset = int(3),
+              let fallbackHandler = address(word(4)), let paymentToken = address(word(5)),
+              let paymentWord = word(6), let payment = UInt256(bigEndian: paymentWord), let paymentReceiver = address(word(7)),
+              ownersOffset % 32 == 0, dataOffset % 32 == 0,
+              let count = int(ownersOffset / 32), count >= 1, count <= SafeRegistration.maxOwners,
+              let dataLength = int(dataOffset / 32), b.count >= 4 + dataOffset + 32 + dataLength
+        else { return nil }
+        var owners: [Address] = []
+        for i in 0..<count {
+            guard let o = address(word(ownersOffset / 32 + 1 + i)) else { return nil }
+            owners.append(o)
+        }
+        let start = 4 + dataOffset + 32
+        let r = SafeRegistration(chainID: chainID, safe: safe, proxyFactory: factory, singleton: singleton, saltNonce: saltNonce,
+                                 owners: owners, threshold: UInt64(threshold), to: to, data: Data(b[start..<(start + dataLength)]),
+                                 fallbackHandler: fallbackHandler, paymentToken: paymentToken, payment: payment,
+                                 paymentReceiver: paymentReceiver, name: name)
+        return setupCalldata(r) == calldata ? r : nil
+    }
+
+    static let createProxyWithNonceSelector = Data(Keccak.hash256(Data("createProxyWithNonce(address,bytes,uint256)".utf8)).prefix(4))
+
+    /// 发给 `factory` 的 `SafeProxyFactory.createProxyWithNonce(singleton, initializer, saltNonce)` 调用数据 → 要创建的 Safe 的参数，
+    /// Safe 地址按 CREATE2 算出（factory 和 singleton 不是官方组合时是零地址，`verify(_:)` 会拒绝）。
+    /// 两层都只接受规范编码，initializer 必须是 `setup`；否则返回 nil。用于在签名前核对创建交易，规则和登记时的 `verify(_:)` 是同一份。
+    public static func registration(chainID: UInt64, factory: Address, createProxyWithNonce calldata: Data) -> SafeRegistration? {
+        guard calldata.prefix(4) == createProxyWithNonceSelector,
+              let v = ABICodec.decode([.address, .bytes, .uint(256)], Data(calldata.dropFirst(4))),
+              let singleton = v[0].address, let initializer = v[1].bytes, let saltNonce = v[2].uint,
+              var r = registration(chainID: chainID, safe: .zero, factory: factory, singleton: singleton, saltNonce: saltNonce,
+                                   setupCalldata: initializer) else { return nil }
+        r.safe = compute(r) ?? .zero
+        return r
+    }
+
     /// 按登记里的参数算出的 Safe 地址；factory / singleton 不是官方组合时返回 nil。
     public static func compute(_ r: SafeRegistration) -> Address? {
         guard let ic = initCode(factory: r.proxyFactory, singleton: r.singleton) else { return nil }

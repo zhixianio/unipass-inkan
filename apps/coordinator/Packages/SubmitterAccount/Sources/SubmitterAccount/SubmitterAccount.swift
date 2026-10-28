@@ -67,7 +67,7 @@ public struct SubmitterAccount: Sendable {
     /// 部署 1.4M + 每台签名器 600k（实测一台约 1.95M）。
     static func localGasEstimate(_ tx: EIP1559Transaction) -> UInt64 {
         if tx.data.isEmpty { return transferGas }
-        if let signers = SigningPolicy.deploymentSigners(tx.data) { return 1_400_000 + 600_000 * UInt64(signers) }
+        if let signers = SigningPolicy.deploymentSigners(tx.data, chainID: tx.chainID) { return 1_400_000 + 600_000 * UInt64(signers) }
         return 400_000
     }
 

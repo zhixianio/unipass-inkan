@@ -6,7 +6,10 @@ import UniPassCore
 /// 2. 对已登记 Safe 的 `execTransaction`（value 为 0；按 (链, 地址) 匹配，同一个地址在别的链上不算）；
 /// 3. 对 Safe 1.4.1 规范部署的 MultiSendCallOnly 的 `multiSend`（value 为 0）：创建 Safe 用。批量里的每一项都要解码，
 ///    只允许 value 为 0 的 CALL，调用 `SafeWebAuthnSignerFactory.createSigner` 或 SafeProxyFactory 1.4.1 的
-///    `createProxyWithNonce`（singleton 必须是官方部署），其他一律拒绝。
+///    `createProxyWithNonce`，其他一律拒绝。`createProxyWithNonce` 的 initializer 要解码成 `Safe.setup`，
+///    再过一遍签名器登记时同一份核对（core 的 `SafeAddress.verify`）：singleton 是官方部署，setup 不带额外调用
+///   （否则 setup 会 DELEGATECALL 它，能偷加 module 或 owner）、不带付款，fallback handler 是零地址或同版本官方的
+///    CompatibilityFallbackHandler（handler 会回答 EIP-1271 签名校验，换成别的合约就能替 Safe "认可"任何签名）。
 ///
 /// 三种都只签支持的链（Ethereum、Base、Sepolia），gas 和每 gas 价格都有硬上限：节点（包括默认的公共节点）
 /// 报的 gas、小费、baseFee 都不可信，这里是签名前的最后一道。
@@ -90,7 +93,8 @@ public struct SigningPolicy: Hashable, Sendable {
         if tx.value.isZero, safes.contains(RegisteredSafe(chainID: tx.chainID, address: tx.to)), selector == Self.execTransaction {
             return Self.executionGasLimit
         }
-        if tx.value.isZero, tx.to == Self.multiSendCallOnly141, selector == Self.multiSend, let signers = Self.deploymentSigners(tx.data) {
+        if tx.value.isZero, tx.to == Self.multiSendCallOnly141, selector == Self.multiSend,
+           let signers = Self.deploymentSigners(tx.data, chainID: tx.chainID) {
             return Self.deploymentGasLimit(signers: signers)
         }
         return nil
@@ -98,7 +102,7 @@ public struct SigningPolicy: Hashable, Sendable {
 
     /// `multiSend(bytes)` 的批量里只有创建签名器 proxy 和创建 Safe 时，返回创建签名器的个数；否则 nil。
     /// ABI 编码必须规范（偏移 32、长度和补零都对得上）。
-    static func deploymentSigners(_ calldata: Data) -> Int? {
+    static func deploymentSigners(_ calldata: Data, chainID: UInt64) -> Int? {
         let b = [UInt8](calldata)
         guard b.count >= 4 + 64, let offset = uint(b, 4), offset == 32, let length = uint(b, 36),
               b.count == 4 + 64 + length + (32 - length % 32) % 32, b[(68 + length)...].allSatisfy({ $0 == 0 }) else { return nil }
@@ -111,7 +115,7 @@ public struct SigningPolicy: Hashable, Sendable {
             guard end - i >= 85, b[i] == 0, let value = UInt256(bigEndian: Data(b[(i + 21)..<(i + 53)])), value.isZero,
                   let n = uint(b, i + 53), end - (i + 85) >= n else { return nil }
             let to = Address(bytes: Data(b[(i + 1)..<(i + 21)]))!
-            guard isDeploymentCall(to: to, data: Data(b[(i + 85)..<(i + 85 + n)])) else { return nil }
+            guard isDeploymentCall(to: to, data: Data(b[(i + 85)..<(i + 85 + n)]), chainID: chainID) else { return nil }
             if to == signerFactory { signers += 1 }
             i += 85 + n
             calls += 1
@@ -119,12 +123,11 @@ public struct SigningPolicy: Hashable, Sendable {
         return calls > 0 ? signers : nil
     }
 
-    static func isDeploymentCall(to: Address, data: Data) -> Bool {
+    static func isDeploymentCall(to: Address, data: Data, chainID: UInt64) -> Bool {
         if to == signerFactory, data.prefix(4) == createSigner { return data.count == 4 + 3 * 32 }
-        if to == proxyFactory141, data.prefix(4) == createProxyWithNonce, data.count >= 4 + 4 * 32 {
-            let word = data.dropFirst(4).prefix(32)
-            guard word.prefix(12).allSatisfy({ $0 == 0 }), let singleton = Address(bytes: Data(word.suffix(20))) else { return false }
-            return SafeAddress.initCode(factory: proxyFactory141, singleton: singleton) != nil
+        if to == proxyFactory141, data.prefix(4) == createProxyWithNonce {
+            guard let r = SafeAddress.registration(chainID: chainID, factory: proxyFactory141, createProxyWithNonce: data) else { return false }
+            return (try? SafeAddress.verify(r)) != nil
         }
         return false
     }

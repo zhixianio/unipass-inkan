@@ -120,45 +120,12 @@ public enum ExistingSafe {
         case sourcesDisagree
     }
 
-    /// `setup(address[],uint256,address,bytes,address,address,uint256,address)`。
-    static let setupSelector = SafeCreation.selector("setup(address[],uint256,address,bytes,address,address,uint256,address)")
-
-    /// `Safe.setup(...)` 调用数据 → 创建参数；必须能用 `SafeAddress.setupCalldata` 原样编码回去。
+    /// `Safe.setup(...)` 调用数据 → 创建参数；必须能用 `SafeAddress.setupCalldata` 原样编码回去（解码在 core，和签名前的核对共用）。
     public static func registration(chainID: UInt64, safe: Address, factory: Address, singleton: Address,
                                     setupData: Data, saltNonce: UInt256, name: String?) throws -> SafeRegistration {
-        let b = [UInt8](setupData)
-        guard b.count >= 4 + 8 * 32, Data(b[0..<4]) == setupSelector else { throw Problem.setupNotDecodable }
-        func word(_ i: Int) -> Data? {
-            let start = 4 + 32 * i
-            return b.count >= start + 32 ? Data(b[start..<(start + 32)]) : nil
-        }
-        func int(_ i: Int) -> Int? {
-            guard let w = word(i), let n = UInt256(bigEndian: w), n.words[1...].allSatisfy({ $0 == 0 }), n.words[0] < 1 << 20 else { return nil }
-            return Int(n.words[0])
-        }
-        func address(_ w: Data?) -> Address? {
-            guard let w, w.prefix(12).allSatisfy({ $0 == 0 }) else { return nil }
-            return Address(bytes: w.suffix(20))
-        }
-        guard let ownersOffset = int(0), let threshold = int(1), let to = address(word(2)), let dataOffset = int(3),
-              let fallbackHandler = address(word(4)), let paymentToken = address(word(5)),
-              let paymentWord = word(6), let payment = UInt256(bigEndian: paymentWord), let paymentReceiver = address(word(7)),
-              ownersOffset % 32 == 0, dataOffset % 32 == 0,
-              let count = int(ownersOffset / 32), count >= 1, count <= SafeRegistration.maxOwners,
-              let dataLength = int(dataOffset / 32), b.count >= 4 + dataOffset + 32 + dataLength
+        guard let r = SafeAddress.registration(chainID: chainID, safe: safe, factory: factory, singleton: singleton,
+                                               saltNonce: saltNonce, setupCalldata: setupData, name: name)
         else { throw Problem.setupNotDecodable }
-        var owners: [Address] = []
-        for i in 0..<count {
-            guard let o = address(word(ownersOffset / 32 + 1 + i)) else { throw Problem.setupNotDecodable }
-            owners.append(o)
-        }
-        let start = 4 + dataOffset + 32
-        let data = Data(b[start..<(start + dataLength)])
-        let r = SafeRegistration(chainID: chainID, safe: safe, proxyFactory: factory, singleton: singleton, saltNonce: saltNonce,
-                                 owners: owners, threshold: UInt64(threshold), to: to, data: data,
-                                 fallbackHandler: fallbackHandler, paymentToken: paymentToken, payment: payment,
-                                 paymentReceiver: paymentReceiver, name: name)
-        guard SafeAddress.setupCalldata(r) == setupData else { throw Problem.setupNotDecodable }
         return r
     }
 
