@@ -2,6 +2,8 @@
 
 UniPass Inkan is a proof of concept. It has had no external security audit, and there is no bug bounty or response-time commitment. Do not put real funds behind it.
 
+The signer takes all its randomness from the Secure Enclave: the signing key and the ECDSA nonce of every signature are generated inside it, and the app can neither check them nor add its own entropy. Signatures end up public on chain, so a weak nonce would expose the key. We rely on Apple here and cannot verify it; this is one reason the iPhone is meant to be one owner of a multisig.
+
 ## Reporting a vulnerability
 
 Please do not report security problems in public issues. Use GitHub's private reporting instead: [Report a vulnerability](https://github.com/zhixianio/unipass-inkan/security/advisories/new).

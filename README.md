@@ -11,7 +11,7 @@ Mac desktop app on the left, offline iPhone signer on the right. Recorded on Sep
 
 ## What it does
 
-- **The key cannot leave the phone.** The signing key is generated inside the iPhone's Secure Enclave and is not exportable. Safe accepts its signatures through Safe's own WebAuthn signer contracts, so nothing on chain is custom.
+- **The key cannot leave the phone.** The signing key is generated inside the iPhone's Secure Enclave and is not exportable. Safe accepts its signatures through Safe's own WebAuthn signer contracts, so nothing on chain is custom. The flip side is trusting Apple's random number generator: the key and the nonce of every signature are made inside the Secure Enclave, cannot be checked from outside, and cannot take your own entropy such as dice rolls. That is one reason the phone is meant to be one owner of a multisig, not the only one.
 - **The phone reads the transaction itself.** Before asking for Face ID, the signer decodes the Safe transaction, recomputes its hash and checks it against Safe-specific risk rules: delegatecall, owner and threshold changes, MultiSend contents, unlimited approvals, address poisoning, gas-refund abuse. It refuses to sign a bare hash.
 - **The computer is not trusted.** A Mac app builds transactions, collects signatures and submits them, but the signer never believes what it says. The two talk only through QR codes, and the signer refuses to sign while the phone has any network connection.
 - **It catches the Bybit pattern.** Replaying the structure of the [February 2025 Bybit transaction](testvectors/rules/bybit-2025-02-21.json), where signers approved a hash their screens could not explain, is refused outright: a DELEGATECALL to anything other than Safe's own libraries cannot be signed.
