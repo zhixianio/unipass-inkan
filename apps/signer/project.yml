@@ -1,0 +1,51 @@
+# 用 XcodeGen 生成 Signer.xcodeproj：xcodegen generate
+name: Signer
+options:
+  deploymentTarget:
+    iOS: "26.0"
+  createIntermediateGroups: true
+  developmentLanguage: en
+packages:
+  SignerKit:
+    path: SignerKit
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    CODE_SIGN_STYLE: Automatic
+targets:
+  Signer:
+    type: application
+    platform: iOS
+    sources:
+      - path: Signer
+    dependencies:
+      - package: SignerKit
+    # Team ID 和 Bundle ID 来自 Config/Signer.xcconfig + 本地的 Config/Local.xcconfig（见 BUILDING.md）。
+    # 不要在下面的 settings 里写 DEVELOPMENT_TEAM / PRODUCT_BUNDLE_IDENTIFIER：target settings 会盖过 xcconfig。
+    configFiles:
+      Debug: Config/Signer.xcconfig
+      Release: Config/Signer.xcconfig
+    settings:
+      base:
+        TARGETED_DEVICE_FAMILY: "1"
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: Inkan
+        # 图标：Signer/Assets.xcassets/AppIcon（单张 1024，来自 design/app-icon/ios-1024.png）
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        INFOPLIST_KEY_NSFaceIDUsageDescription: Face ID approves each signature.
+        INFOPLIST_KEY_NSCameraUsageDescription: The camera scans signing requests and Safe codes from UniPass Inkan Desktop.
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
+        MARKETING_VERSION: "0.0.1"
+        CURRENT_PROJECT_VERSION: "1"
+        # 界面中英双语（A14）：Signer/Localizable.xcstrings
+        SWIFT_EMIT_LOC_STRINGS: YES
+        LOCALIZATION_PREFERS_STRING_CATALOGS: YES
+schemes:
+  Signer:
+    build:
+      targets:
+        Signer: all
+    test:
+      targets:
+        - package: SignerKit/SignerKitTests

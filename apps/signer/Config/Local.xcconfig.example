@@ -1,0 +1,8 @@
+// Copy to Local.xcconfig (ignored by git) and fill in your own values.
+// 复制为 Local.xcconfig（不会提交），填上你自己的值。
+
+// Your Apple Developer Team ID (10 characters), see https://developer.apple.com/account → Membership details.
+DEVELOPMENT_TEAM = ABCDE12345
+
+// A reverse-DNS prefix you own. The app's bundle ID becomes $(BUNDLE_ID_PREFIX).signer.
+BUNDLE_ID_PREFIX = com.example

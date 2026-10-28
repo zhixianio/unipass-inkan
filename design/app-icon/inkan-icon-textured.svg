@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <title>UniPass Inkan icon (ink-stamp texture)</title>
+  <defs>
+    <!-- slightly wobbly edges, like pressed ink -->
+    <filter id="rough" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" seed="4" result="w"/>
+      <feDisplacementMap in="SourceGraphic" in2="w" scale="9" xChannelSelector="R" yChannelSelector="G" result="d"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" seed="9" result="f"/>
+      <feDisplacementMap in="d" in2="f" scale="4" xChannelSelector="G" yChannelSelector="B"/>
+    </filter>
+    <!-- sparse paper-coloured specks where ink did not fully take -->
+    <filter id="specks" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="2" seed="21" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0.98  0 0 0 0 0.94  0 0 0 0 0.87  0 0 0 14 -8.1"/>
+    </filter>
+    <!-- soft uneven pressure -->
+    <filter id="blot" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.01" numOctaves="2" seed="8" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0.98  0 0 0 0 0.94  0 0 0 0 0.87  0 0 0 1.1 -0.45"/>
+    </filter>
+    <!-- paper fibres -->
+    <filter id="paper" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.75 0.35" numOctaves="3" seed="2" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0.52  0 0 0 0 0.40  0 0 0 0 0.28  0 0 0 1.2 -0.5"/>
+    </filter>
+    <clipPath id="seal"><circle cx="512" cy="500" r="362"/></clipPath>
+  </defs>
+  <rect width="1024" height="1024" fill="#FBEFDD"/>
+  <g filter="url(#rough)">
+    <circle cx="512" cy="500" r="365" fill="#E3281B"/>
+    <rect x="360" y="230" width="305" height="545" rx="46" fill="#FBEFDD"/>
+    <rect x="387" y="293" width="251" height="420" rx="22" fill="#E3281B"/>
+    <rect x="472" y="255" width="81" height="17" rx="8.5" fill="#E3281B"/>
+    <path fill="#FBEFDD" d="M512 431a37 37 0 0 1 24.500 64.700L546 566q1 5-4 5h-60q-5 0-4-5l9.500-70.300A37 37 0 0 1 512 431z"/>
+  </g>
+  <g clip-path="url(#seal)">
+    <rect width="1024" height="1024" filter="url(#blot)" opacity="0.35"/>
+    <rect width="1024" height="1024" filter="url(#specks)" opacity="0.9"/>
+  </g>
+  <rect width="1024" height="1024" filter="url(#paper)" opacity="0.28" style="mix-blend-mode:multiply"/>
+</svg>

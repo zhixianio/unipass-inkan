@@ -1,0 +1,59 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "CFBundleDisplayName": {
+      "comment": "App 显示名（A20）",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "UniPass Inkan Desktop"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "UniPass Inkan 桌面端"
+          }
+        }
+      }
+    },
+    "CFBundleName": {
+      "comment": "菜单栏里的短名（A20）",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inkan"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inkan"
+          }
+        }
+      }
+    },
+    "NSCameraUsageDescription": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scan the QR codes shown by UniPass Inkan Signer to bring its signatures back. Frames are processed on this Mac only and never stored or uploaded."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "扫描 UniPass Inkan 签名器屏幕上的二维码，取回它的签名。画面只在本机识别，不保存、不上传。"
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

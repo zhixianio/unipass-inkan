@@ -1,0 +1,16 @@
+[profile.default]
+src = "src"
+test = "test"
+script = "script"
+out = "out"
+libs = ["lib"]
+solc_version = "0.8.26"
+optimizer = true
+optimizer_runs = 200
+via_ir = false
+# Osaka: the local EVM has the EIP-7951 P256VERIFY precompile at 0x100 (Sepolia/mainnet post-Fusaka).
+evm_version = "osaka"
+fs_permissions = [{ access = "read", path = "./out" }, { access = "read-write", path = "../testvectors/webauthn" }]
+
+[fmt]
+line_length = 120

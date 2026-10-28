@@ -1,0 +1,18 @@
+{
+"Address poisoning": "地址投毒",
+"Attack Demo Presenter": "攻击演示讲解",
+"Bybit-style": "Bybit 式",
+"Demo: the signature was not saved.": "演示：签名没有保存。",
+"Fingerprint sent to the signer": "发给签名器的指纹",
+"Fingerprint shown": "界面上显示的指纹",
+"Last request sent to the signer": "最近一次发给签名器的请求",
+"Off": "关闭",
+"Off: requests go to the signer unchanged.": "关闭：请求原样发给签名器。",
+"Refund drain": "退款抽干",
+"Run a normal send. The desktop app keeps showing what you entered; only the request sent to the signer is replaced.": "照常发起一笔发送。桌面端始终显示你填的内容，只有发给签名器的请求被换掉。",
+"Scenario": "场景",
+"Shown on the desktop": "桌面端显示的",
+"The recipient is replaced by an address with the same first and last 6 hex digits. Expected: red, rule R05, with both addresses shown side by side. The real recipient must be in the signer's address book.": "收款人被换成一个首尾各 6 位十六进制相同的地址。预期：判红，命中 R05，两个地址并排显示。真收款人要先在签名器的地址簿里。",
+"The signer receives a DELEGATECALL to an unknown contract (the one from the Bybit hack) whose call data looks like transfer(…, 0). Expected: refused outright, because a DELEGATECALL to a contract that isn't one of Safe's official libraries is never signed.": "签名器收到的是对一个陌生合约（Bybit 事件里那个）的 DELEGATECALL，调用数据看起来像 transfer(…, 0)。预期：直接拒签，因为 DELEGATECALL 到不是 Safe 官方库的合约一律不签。",
+"The transfer itself is unchanged, but gasPrice, baseGas and refundReceiver make the Safe pay about 1 ETH to the attacker when executed. Expected: refused outright.": "转账本身不变，但 gasPrice、baseGas、refundReceiver 被改成执行时 Safe 要给攻击者付约 1 ETH 的\"退款\"。预期：直接拒签。"
+}

@@ -1,0 +1,7 @@
+# XcodeGen 生成物
+*.xcodeproj/
+# 本机签名配置（Team ID）
+Config/Local.xcconfig
+# 包的构建目录
+Packages/*/.build/
+build/

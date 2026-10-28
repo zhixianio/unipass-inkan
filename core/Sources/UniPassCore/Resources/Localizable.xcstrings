@@ -1,0 +1,1281 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "action.addOwner": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add %1$@ as an owner of this Safe and set the threshold to %2$@."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "把 %1$@ 加为这个 Safe 的 owner，并把门限设为 %2$@。"
+          }
+        }
+      }
+    },
+    "action.approvalForAll": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Allow %1$@ to move ALL items of %2$@ owned by this Safe."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "允许 %1$@ 转走这个 Safe 持有的 %2$@ 的全部物品。"
+          }
+        }
+      }
+    },
+    "action.approve": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Allow %1$@ to spend up to %2$@ from this Safe."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "允许 %1$@ 从这个 Safe 花费最多 %2$@。"
+          }
+        }
+      }
+    },
+    "action.approveUnlimited": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Allow %2$@ to spend an UNLIMITED amount of %1$@ from this Safe."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "允许 %2$@ 从这个 Safe 花费 %1$@，额度无限。"
+          }
+        }
+      }
+    },
+    "action.changeThreshold": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Change the number of required signatures to %1$@."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "把所需签名数改为 %1$@。"
+          }
+        }
+      }
+    },
+    "action.contractCall": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Call an unrecognized function (%2$@) on %1$@."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "调用 %1$@ 上一个不认识的函数（%2$@）。"
+          }
+        }
+      }
+    },
+    "action.decreaseAllowance": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Decrease the allowance of %1$@ by %2$@."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "把 %1$@ 的授权额度减少 %2$@。"
+          }
+        }
+      }
+    },
+    "action.delegateCall": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DELEGATECALL: this Safe will run the code of %1$@ as itself. That code can change anything in the Safe, including its owners and implementation. On the surface the data looks like: %2$@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DELEGATECALL：这个 Safe 会以自己的身份运行 %1$@ 的代码。这段代码可以改动 Safe 的一切，包括 owner 和实现合约。调用数据表面上是：%2$@"
+          }
+        }
+      }
+    },
+    "action.disableModule": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Disable module %1$@."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "停用模块 %1$@。"
+          }
+        }
+      }
+    },
+    "action.emptyCall": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Call %1$@ with no data and no value."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "调用 %1$@，不带数据也不转币。"
+          }
+        }
+      }
+    },
+    "action.enableModule": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enable module %1$@. A module can execute transactions from this Safe WITHOUT owner signatures."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "启用模块 %1$@。模块可以不经 owner 签名直接从这个 Safe 执行交易。"
+          }
+        }
+      }
+    },
+    "action.increaseAllowance": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Increase the allowance of %1$@ by %2$@."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "把 %1$@ 的授权额度增加 %2$@。"
+          }
+        }
+      }
+    },
+    "action.increaseAllowanceUnlimited": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Increase the allowance of %1$@ by an effectively unlimited amount (%2$@)."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "把 %1$@ 的授权额度增加一个近乎无限的数（%2$@）。"
+          }
+        }
+      }
+    },
+    "action.invalid": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This call cannot be executed as written."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这条调用按现在的写法无法执行。"
+          }
+        }
+      }
+    },
+    "action.multiSend": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Batch of %1$@ calls, executed in order; if any fails, all are reverted."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "批量执行 %1$@ 条调用，按顺序执行，任何一条失败全部回滚。"
+          }
+        }
+      }
+    },
+    "action.nativeTransfer": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Send %1$@ to %2$@."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "向 %2$@ 转 %1$@。"
+          }
+        }
+      }
+    },
+    "action.nft1155Transfer": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transfer %1$@ of item #%3$@ in %2$@ from %4$@ to %5$@."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "把 %2$@ 里编号 #%3$@ 的物品 %1$@ 个从 %4$@ 转到 %5$@。"
+          }
+        }
+      }
+    },
+    "action.nftBatchTransfer": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Send %1$@ kinds of items from %2$@ (%3$@) from %4$@ to %5$@."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "把 %2$@ 的 %1$@ 种物品（%3$@）从 %4$@ 转给 %5$@。"
+          }
+        }
+      }
+    },
+    "action.nftTransfer": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transfer NFT #%2$@ of %1$@ from %3$@ to %4$@."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "把 %1$@ 的 NFT #%2$@ 从 %3$@ 转到 %4$@。"
+          }
+        }
+      }
+    },
+    "action.permit2Approve": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Through Permit2, allow %2$@ to spend up to %3$@ of %1$@, until %4$@."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "通过 Permit2 允许 %2$@ 花费最多 %3$@ 的 %1$@，有效期到 %4$@。"
+          }
+        }
+      }
+    },
+    "action.permit2ApproveUnlimited": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Through Permit2, allow %2$@ to spend an UNLIMITED amount of %1$@, until %4$@ (%3$@)."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "通过 Permit2 允许 %2$@ 花费 %1$@，额度无限，有效期到 %4$@（%3$@）。"
+          }
+        }
+      }
+    },
+    "action.removeGuard": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remove the transaction guard."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "移除交易守卫。"
+          }
+        }
+      }
+    },
+    "action.removeModuleGuard": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remove the module guard."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "移除模块守卫。"
+          }
+        }
+      }
+    },
+    "action.removeOwner": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remove owner %1$@ from this Safe and set the threshold to %2$@."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "从这个 Safe 移除 owner %1$@，并把门限设为 %2$@。"
+          }
+        }
+      }
+    },
+    "action.revoke": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revoke the allowance of %2$@ on %1$@."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "撤销 %2$@ 在 %1$@ 上的授权。"
+          }
+        }
+      }
+    },
+    "action.revokeForAll": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revoke the permission of %1$@ to move all items of %2$@."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "撤销 %1$@ 转走 %2$@ 全部物品的权限。"
+          }
+        }
+      }
+    },
+    "action.safeOtherSelfCall": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Call an unrecognized function (%1$@) on this Safe itself."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "调用这个 Safe 自身一个不认识的函数（%1$@）。"
+          }
+        }
+      }
+    },
+    "action.setFallbackHandler": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Set the fallback handler to %1$@. It answers calls this Safe does not implement itself, including signature checks."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "把回退处理合约设为 %1$@。它负责处理 Safe 自己没有实现的调用，包括签名验证。"
+          }
+        }
+      }
+    },
+    "action.setGuard": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Set the transaction guard to %1$@. A guard can block every future transaction, including this kind of change."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "把交易守卫设为 %1$@。守卫可以拦下之后的每一笔交易，包括再改回来的这一笔。"
+          }
+        }
+      }
+    },
+    "action.setModuleGuard": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Set the module guard to %1$@."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "把模块守卫设为 %1$@。"
+          }
+        }
+      }
+    },
+    "action.swapOwner": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Replace owner %1$@ with %2$@."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "把 owner %1$@ 换成 %2$@。"
+          }
+        }
+      }
+    },
+    "action.tokenTransfer": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Send %1$@ to %2$@ (token contract %3$@)."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "向 %2$@ 转 %1$@（代币合约 %3$@）。"
+          }
+        }
+      }
+    },
+    "action.tokenTransferFrom": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Move %1$@ from %2$@ to %3$@ (token contract %4$@)."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "把 %1$@ 从 %2$@ 转到 %3$@（代币合约 %4$@）。"
+          }
+        }
+      }
+    },
+    "action.transferShares": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transfer %1$@ shares of %2$@ to %3$@. This is a number of shares, not a token amount."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "把 %2$@ 的 %1$@ 份额转给 %3$@。这是份额数，不是代币数量。"
+          }
+        }
+      }
+    },
+    "action.unknownTransferFrom": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "transferFrom on an unknown contract %1$@: from %2$@ to %3$@, value %4$@ (could be an amount or an NFT id; the contract is not in the library, so it is not interpreted)."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未知合约 %1$@ 的 transferFrom：从 %2$@ 到 %3$@，参数 %4$@（可能是数量，也可能是 NFT 编号；合约不在标签库里，不做解释）。"
+          }
+        }
+      }
+    },
+    "amount.rawUnits": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "raw units"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最小单位"
+          }
+        }
+      }
+    },
+    "gas.nativeToken": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ETH"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ETH"
+          }
+        }
+      }
+    },
+    "gas.submitter": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "whoever submits the transaction"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "提交这笔交易的账户"
+          }
+        }
+      }
+    },
+    "reject.counterpartyIsSafeContract": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The other party %1$@ is a Safe system contract or Permit2. Anyone can call these contracts, so anything sent or approved to them can be taken by anyone."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "对方 %1$@ 是 Safe 的系统合约或 Permit2。这些合约谁都能调用，转给或授权给它们的资产任何人都能拿走。"
+          }
+        }
+      }
+    },
+    "reject.delegateCallInCallOnly": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A DELEGATECALL appears inside MultiSendCallOnly, which reverts."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MultiSendCallOnly 里出现了 DELEGATECALL，会执行失败。"
+          }
+        }
+      }
+    },
+    "reject.delegateCallNotAllowed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DELEGATECALL to %1$@: this Safe would run that contract's code as itself, which can take over the Safe. Only Safe's official MultiSend and its upgrade or deployment libraries are allowed."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DELEGATECALL 到 %1$@：这个 Safe 会以自己的身份运行那个合约的代码，可以借此接管 Safe。只允许 Safe 官方的 MultiSend 和它的升级、部署库。"
+          }
+        }
+      }
+    },
+    "reject.gasRefund": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This transaction uses the Safe gas refund (gasPrice %1$@, baseGas %2$@, paid in %3$@ to %4$@). When it is executed, the Safe would pay that refund from its own balance, on top of what this transaction shows. UniPass Inkan does not use refunds, so it is refused."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这笔交易用了 Safe 的 gas 退款（gasPrice %1$@，baseGas %2$@，退款币种 %3$@，收款方 %4$@）。执行时 Safe 会在这笔交易显示的内容之外，再从自己的余额里付这笔“退款”。UniPass Inkan 不使用退款，所以拒签。"
+          }
+        }
+      }
+    },
+    "reject.invalidInnerOperation": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A call in the batch has an invalid operation type."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "批量里有一条调用的操作类型无效。"
+          }
+        }
+      }
+    },
+    "reject.malformedArguments": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A recognized function has non-standard arguments."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "一个已识别函数的参数编码不规范。"
+          }
+        }
+      }
+    },
+    "reject.malformedMultiSend": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The batch data is truncated or has extra bytes."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "批量数据被截断或有多余字节。"
+          }
+        }
+      }
+    },
+    "reject.malformedRequest": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The signing request could not be parsed. Refusing to sign."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "签名请求解析失败，拒签。"
+          }
+        }
+      }
+    },
+    "reject.multiSendViaCall": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A MultiSend contract is called with CALL instead of DELEGATECALL; it would not run as this Safe."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "用 CALL 而不是 DELEGATECALL 调用 MultiSend 合约，它不会以这个 Safe 的身份执行。"
+          }
+        }
+      }
+    },
+    "reject.nestingTooDeep": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Batches are nested too deeply."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "批量嵌套太深。"
+          }
+        }
+      }
+    },
+    "reject.networkOnline": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This iPhone is connected to a network. Turn on Airplane Mode and turn off Wi-Fi before signing."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这台 iPhone 联网了。请打开飞行模式并关闭 Wi-Fi 后再签名。"
+          }
+        }
+      }
+    },
+    "reject.notForThisSigner": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This request is addressed to a different signer, not this iPhone."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这个请求是发给别的签名设备的，不是这台 iPhone。"
+          }
+        }
+      }
+    },
+    "reject.rawHash": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The request asks to sign a bare hash. A bare hash cannot be checked, so it is never signed."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请求签的是一个裸哈希。裸哈希无法核对内容，一律不签。"
+          }
+        }
+      }
+    },
+    "reject.safeNotRegistered": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Safe %1$@ on chain %2$@ is not one of your registered Safes. Register it first."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "链 %2$@ 上的 Safe %1$@ 不在“我的 Safe”里，请先登记。"
+          }
+        }
+      }
+    },
+    "reject.sendsToSignerAddress": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The recipient is this iPhone's own signer contract. It cannot receive funds: anything sent to it is lost for good."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "收款地址是这台签名器自己的签名合约，它不能收款，转进去的资产会永久取不回来。"
+          }
+        }
+      }
+    },
+    "reject.tooManyCalls": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Too many calls in one transaction."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "一笔交易里的调用太多。"
+          }
+        }
+      }
+    },
+    "reject.unsupportedChain": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chain %1$@ is not supported."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "不支持链 %1$@。"
+          }
+        }
+      }
+    },
+    "reject.unsupportedRequest": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This request is not a Safe transaction. This version only signs Safe transactions."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这不是 Safe 交易请求。这个版本只签 Safe 交易。"
+          }
+        }
+      }
+    },
+    "rule.R01": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R01 DELEGATECALL to %1$@, which is not an official MultiSend."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R01 DELEGATECALL 的目标 %1$@ 不是官方 MultiSend。"
+          }
+        }
+      }
+    },
+    "rule.R02": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R02 Changes the Safe's owners, threshold, modules, guard or fallback handler."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R02 改动 Safe 的 owner、门限、模块、守卫或回退处理合约。"
+          }
+        }
+      }
+    },
+    "rule.R02.mySafeCall": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R02 Calls function %1$@ on your Safe %2$@. A call into a Safe can change its signers, modules or settings, or approve and execute transactions for it."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R02 调用你的 Safe %2$@ 的函数 %1$@。对 Safe 的调用能改它的签名人、模块或设置，或者替它批准、执行交易。"
+          }
+        }
+      }
+    },
+    "rule.R02.safeFunction": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R02 %1$@ is a Safe function that manages signers or executes transactions, called on %2$@. If that contract is a Safe, this can change its signers or settings, or execute a transaction for it."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R02 %1$@ 是 Safe 管理签名人或执行交易的函数，被调用的是 %2$@。如果它是一个 Safe，这笔调用能改它的签名人或设置，或者替它执行交易。"
+          }
+        }
+      }
+    },
+    "rule.R02.selfCall": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R02 Calls an unrecognized function (%1$@) on the Safe itself."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R02 调用 Safe 自身一个不认识的函数（%1$@）。"
+          }
+        }
+      }
+    },
+    "rule.R03.forAll": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R03 %1$@ gets control of every item of %2$@."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R03 %1$@ 获得 %2$@ 全部物品的控制权。"
+          }
+        }
+      }
+    },
+    "rule.R03.unlimited": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R03 Unlimited allowance for %1$@ on %2$@."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R03 给 %1$@ 在 %2$@ 上无限授权。"
+          }
+        }
+      }
+    },
+    "rule.R05": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R05 %1$@ looks like %2$@ (same first and last characters) but is a different address. This is how address poisoning works."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R05 %1$@ 和 %2$@ 首尾几位相同，但不是同一个地址。地址投毒就是这样骗人的。"
+          }
+        }
+      }
+    },
+    "rule.R05.safeOwner": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R05 %1$@ looks like %2$@, a signer of the Safe %3$@ (same first and last characters), but is a different address. This is how address poisoning works."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R05 %1$@ 看起来像 Safe %3$@ 的签名人 %2$@（首尾几位相同），但不是同一个地址。地址投毒就是这样骗人的。"
+          }
+        }
+      }
+    },
+    "rule.R05.thisSigner": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R05 %1$@ looks like this iPhone's signer address %2$@ (same first and last characters), but is a different address. This is how address poisoning works."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R05 %1$@ 看起来像本机的签名人地址 %2$@（首尾几位相同），但不是同一个地址。地址投毒就是这样骗人的。"
+          }
+        }
+      }
+    },
+    "rule.R06": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R06 %1$@ appears for the first time (not in the address book)."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R06 %1$@ 第一次出现（不在地址簿里）。"
+          }
+        }
+      }
+    },
+    "rule.R07": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R07 Unknown function %1$@ on %2$@."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R07 %2$@ 上的未知函数 %1$@。"
+          }
+        }
+      }
+    },
+    "rule.R07.token": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R07 Unrecognized function %1$@ on the token contract %2$@. It may be another way to transfer or approve this token, so it is treated as high risk."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R07 代币合约 %2$@ 上不认识的函数 %1$@。它可能是另一种转账或授权写法，所以按高风险处理。"
+          }
+        }
+      }
+    },
+    "rule.R08": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R08 A call inside this batch is flagged (%1$@)."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R08 批量里有调用命中了规则（%1$@）。"
+          }
+        }
+      }
+    },
+    "rule.R09.nameClash": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R09 Your address book calls %2$@ %1$@, but the real token with that name is %3$@."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R09 地址簿把 %2$@ 叫作 %1$@，但叫这个名字的真代币是 %3$@。"
+          }
+        }
+      }
+    },
+    "rule.R09.unknownToken": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R09 Token contract %1$@ is not in the built-in library."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R09 代币合约 %1$@ 不在内置标签库里。"
+          }
+        }
+      }
+    },
+    "rule.R12": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R12 This transaction sets safeTxGas to %1$@. If it fails when executed, it is still recorded as done: the Safe moves on to the next transaction number and nothing else happens. Anyone holding the signatures can make it fail on purpose by sending too little gas."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R12 这笔交易把 safeTxGas 设成了 %1$@。执行失败时它仍会被记为已执行：Safe 的交易序号往前走，但什么都没发生。拿到签名的人可以故意给不够的 gas 让它失败。"
+          }
+        }
+      }
+    },
+    "rule.R13": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R13 The other party %1$@ is a token contract itself. Tokens sent or approved to a token contract are usually lost."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R13 对方 %1$@ 是代币合约本身。转给或授权给代币合约的资产通常就丢了。"
+          }
+        }
+      }
+    },
+    "timestamp.zero": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "immediately"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "立即"
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

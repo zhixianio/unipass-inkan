@@ -1,0 +1,262 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "Address poisoning": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Address poisoning"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "地址投毒"
+          }
+        }
+      }
+    },
+    "Attack Demo Presenter": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Attack Demo Presenter"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "攻击演示讲解"
+          }
+        }
+      }
+    },
+    "Bybit-style": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bybit-style"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bybit 式"
+          }
+        }
+      }
+    },
+    "Demo: the signature was not saved.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Demo: the signature was not saved."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "演示：签名没有保存。"
+          }
+        }
+      }
+    },
+    "Fingerprint sent to the signer": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fingerprint sent to the signer"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "发给签名器的指纹"
+          }
+        }
+      }
+    },
+    "Fingerprint shown": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fingerprint shown"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "界面上显示的指纹"
+          }
+        }
+      }
+    },
+    "Last request sent to the signer": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Last request sent to the signer"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最近一次发给签名器的请求"
+          }
+        }
+      }
+    },
+    "Off": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Off"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "关闭"
+          }
+        }
+      }
+    },
+    "Off: requests go to the signer unchanged.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Off: requests go to the signer unchanged."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "关闭：请求原样发给签名器。"
+          }
+        }
+      }
+    },
+    "Refund drain": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Refund drain"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "退款抽干"
+          }
+        }
+      }
+    },
+    "Run a normal send. The desktop app keeps showing what you entered; only the request sent to the signer is replaced.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Run a normal send. The desktop app keeps showing what you entered; only the request sent to the signer is replaced."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "照常发起一笔发送。桌面端始终显示你填的内容，只有发给签名器的请求被换掉。"
+          }
+        }
+      }
+    },
+    "Scenario": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scenario"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "场景"
+          }
+        }
+      }
+    },
+    "Shown on the desktop": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shown on the desktop"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "桌面端显示的"
+          }
+        }
+      }
+    },
+    "The recipient is replaced by an address with the same first and last 6 hex digits. Expected: red, rule R05, with both addresses shown side by side. The real recipient must be in the signer's address book.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The recipient is replaced by an address with the same first and last 6 hex digits. Expected: red, rule R05, with both addresses shown side by side. The real recipient must be in the signer's address book."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "收款人被换成一个首尾各 6 位十六进制相同的地址。预期：判红，命中 R05，两个地址并排显示。真收款人要先在签名器的地址簿里。"
+          }
+        }
+      }
+    },
+    "The signer receives a DELEGATECALL to an unknown contract (the one from the Bybit hack) whose call data looks like transfer(…, 0). Expected: refused outright, because a DELEGATECALL to a contract that isn't one of Safe's official libraries is never signed.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The signer receives a DELEGATECALL to an unknown contract (the one from the Bybit hack) whose call data looks like transfer(…, 0). Expected: refused outright, because a DELEGATECALL to a contract that isn't one of Safe's official libraries is never signed."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "签名器收到的是对一个陌生合约（Bybit 事件里那个）的 DELEGATECALL，调用数据看起来像 transfer(…, 0)。预期：直接拒签，因为 DELEGATECALL 到不是 Safe 官方库的合约一律不签。"
+          }
+        }
+      }
+    },
+    "The transfer itself is unchanged, but gasPrice, baseGas and refundReceiver make the Safe pay about 1 ETH to the attacker when executed. Expected: refused outright.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The transfer itself is unchanged, but gasPrice, baseGas and refundReceiver make the Safe pay about 1 ETH to the attacker when executed. Expected: refused outright."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "转账本身不变，但 gasPrice、baseGas、refundReceiver 被改成执行时 Safe 要给攻击者付约 1 ETH 的\"退款\"。预期：直接拒签。"
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

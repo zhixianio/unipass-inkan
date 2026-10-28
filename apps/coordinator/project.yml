@@ -1,0 +1,60 @@
+# 用 XcodeGen 生成 UniPassCoordinator.xcodeproj（生成物不进仓库）：
+#   brew install xcodegen && xcodegen generate
+name: UniPassCoordinator
+options:
+  developmentLanguage: en
+  deploymentTarget:
+    macOS: "26.0"
+  createIntermediateGroups: true
+configFiles:
+  Debug: Config/Coordinator.xcconfig
+  Release: Config/Coordinator.xcconfig
+packages:
+  UniPassCore:
+    path: ../../core
+  CoordinatorKit:
+    path: Packages/CoordinatorKit
+  CoordinatorNetwork:
+    path: Packages/CoordinatorNetwork
+  # 提交账户（A24），带第三方依赖 swift-secp256k1；只有 App 链接它。
+  SubmitterAccount:
+    path: Packages/SubmitterAccount
+targets:
+  UniPassCoordinator:
+    type: application
+    platform: macOS
+    sources:
+      - path: Coordinator
+    # Team ID 和 Bundle ID 来自 Config/Coordinator.xcconfig + 本地的 Config/Local.xcconfig（见 README）。
+    # 不要在下面的 settings 里写 DEVELOPMENT_TEAM / PRODUCT_BUNDLE_IDENTIFIER：target settings 会盖过 xcconfig。
+    settings:
+      base:
+        PRODUCT_NAME: UniPass Inkan Desktop
+        INFOPLIST_FILE: Config/Info.plist
+        GENERATE_INFOPLIST_FILE: NO
+        SWIFT_VERSION: "6.0"
+        SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
+        # 界面中英双语（A14）：Coordinator/Localizable.xcstrings；scripts/check-localization.sh 核对
+        SWIFT_EMIT_LOC_STRINGS: YES
+        LOCALIZATION_PREFERS_STRING_CATALOGS: YES
+        ENABLE_HARDENED_RUNTIME: YES
+        CODE_SIGN_ENTITLEMENTS: Config/Coordinator.entitlements
+        MARKETING_VERSION: "0.0.1"
+        CURRENT_PROJECT_VERSION: "1"
+      configs:
+        # 攻击演示的文字只在 DEBUG 构建里用到（代码由 #if DEBUG 隔离）；Release 不带这个字符串表。
+        Release:
+          EXCLUDED_SOURCE_FILE_NAMES: AttackDemo.xcstrings
+    dependencies:
+      - package: UniPassCore
+      - package: CoordinatorKit
+        product: QRTransport
+      - package: CoordinatorKit
+        product: CoordinatorFlow
+      - package: CoordinatorNetwork
+        product: SafeTransactionService
+      - package: SubmitterAccount
+    scheme:
+      environmentVariables:
+        # 在 Xcode 的 scheme 里填，或者存进 Keychain（App 的 STS 页）；不要提交到仓库。
+        SAFE_API_KEY: ""

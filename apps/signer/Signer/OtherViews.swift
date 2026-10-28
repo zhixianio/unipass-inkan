@@ -1,0 +1,189 @@
+import SignerKit
+import SwiftUI
+import UniPassCore
+
+/// 签好的结果：`unipass-signature` 二维码，给 UniPass Inkan 桌面端扫。
+struct SignatureView: View {
+    let signature: SignerSignature
+    let safeTxHash: Data
+    @Environment(AppModel.self) private var model
+
+    var body: some View {
+        NavigationStack {
+            ScrollView {
+                VStack(spacing: 16) {
+                    Label("Signed", systemImage: "checkmark.seal.fill").font(.title2.weight(.bold)).foregroundStyle(.green)
+                    URQRCode(ur: signature.ur)
+                    Text("Show this code to UniPass Inkan Desktop.").font(.callout)
+                    VStack(spacing: 4) {
+                        Text("Transaction fingerprint").font(.caption).foregroundStyle(.secondary)
+                        Text(verbatim: Display.shortHash(safeTxHash)).font(.system(.title3, design: .monospaced).weight(.semibold))
+                    }
+                }
+                .padding()
+            }
+            .toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { model.route = nil } } }
+        }
+    }
+}
+
+/// 登记 Safe：地址已经按创建参数离线核对，并且本机在 owner 里。列出全部签名人和所需同意人数给用户确认。
+/// `then` 不为空时是"首次见到这个 Safe"（S4）：登记后直接进入那笔交易的确认页。
+struct RegisterView: View {
+    let verified: SafeAddress.VerifiedSafe
+    let then: EthSignRequest?
+    @Environment(AppModel.self) private var model
+    @State private var name = ""
+    @State private var error: String?
+
+    private var registration: SafeRegistration { verified.registration }
+
+    var body: some View {
+        NavigationStack {
+            List {
+                if then != nil {
+                    Section {
+                        Label("First time seeing this Safe", systemImage: "sparkles").font(.headline)
+                        Text("This signing request is for a Safe that is not in My Safes yet. Check its signers below. Add it and continue to the transaction?")
+                            .font(.callout)
+                    }
+                }
+                Section {
+                    Label("Address verified offline from its creation parameters", systemImage: "checkmark.seal.fill").foregroundStyle(.green)
+                    LabeledContent("Network") { Text(verbatim: Display.chain(registration.chainID)) }
+                    AddressView(info: AddressInfo(address: registration.safe, label: registration.name, source: .unknown), hidesSource: true)
+                    DisclosureGroup("Technical details") {
+                        LabeledContent("Version") { Text(verbatim: "Safe\(verified.initCode.isL2 ? "L2" : "") \(verified.initCode.version)") }
+                        // 核对时已经要求是零地址或同版本官方的 CompatibilityFallbackHandler（SafeAddress.verify）。
+                        LabeledContent("Fallback handler") {
+                            if registration.fallbackHandler == .zero {
+                                Text("None")
+                            } else {
+                                VStack(alignment: .trailing, spacing: 2) {
+                                    Text(verbatim: LabelLibrary.builtIn.lookup(chainID: registration.chainID, address: registration.fallbackHandler)?.name ?? "")
+                                    Text(verbatim: Explanation.shortAddress(registration.fallbackHandler)).font(.caption.monospaced())
+                                }
+                            }
+                        }
+                    }
+                }
+                Section {
+                    Text(Display.approvals(registration.threshold, of: registration.owners.count)).font(.headline)
+                    ForEach(registration.owners, id: \.self) { o in owner(o) }
+                } header: {
+                    Text("Signers")
+                } footer: {
+                    Text("This proves only the signers and required approvals the Safe was created with. If they were changed later, this iPhone does not know about it.")
+                }
+                Section {
+                    TextField("Name (optional)", text: $name)
+                    if let error { Text(error).foregroundStyle(.red) }
+                    Button(then == nil ? "Register this Safe" : "Add and continue") {
+                        do { try model.register(verified, name: name.isEmpty ? nil : name, then: then) } catch {
+                            self.error = "\(error)"
+                        }
+                    }
+                    .buttonStyle(.borderedProminent)
+                }
+            }
+            .navigationTitle(then == nil ? "Register Safe" : "New Safe")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Cancel") { model.route = nil } } }
+        }
+    }
+
+    /// 本机标"本机"，地址簿里的标名字，其余标"不在地址簿"。
+    @ViewBuilder private func owner(_ o: Address) -> some View {
+        if o == verified.signer {
+            VStack(alignment: .leading, spacing: 2) {
+                Badge(text: String(localized: "This iPhone"), color: .blue)
+                AddressView(info: AddressInfo(address: o, label: nil, source: .unknown), hidesSource: true)
+            }
+        } else if let b = model.store.bookEntries.first(where: { $0.address == o }) {
+            AddressView(info: AddressInfo(address: o, label: b.label, source: .addressBook))
+        } else {
+            VStack(alignment: .leading, spacing: 2) {
+                Badge(text: String(localized: "Not in address book"), color: .gray)
+                AddressView(info: AddressInfo(address: o, label: nil, source: .unknown), hidesSource: true)
+            }
+        }
+    }
+}
+
+struct SafesView: View {
+    @Environment(AppModel.self) private var model
+    @State private var refresh = 0
+
+    var body: some View {
+        List {
+            ForEach(model.store.safes, id: \.self) { s in
+                VStack(alignment: .leading, spacing: 4) {
+                    AddressView(info: AddressInfo(address: Address(hex: s.address)!, label: s.name, source: .mySafe), hidesSource: true, compact: true)
+                    Text(verbatim: "\(Display.chain(s.chainID)) · \(Display.approvals(s.threshold, of: s.owners.count))")
+                        .font(.caption).foregroundStyle(.secondary)
+                }
+                .swipeActions {
+                    Button("Remove", role: .destructive) {
+                        try? model.store.removeSafe(chainID: s.chainID, address: Address(hex: s.address)!)
+                        refresh += 1
+                    }
+                }
+            }
+            if model.store.safes.isEmpty {
+                Text("No Safes yet. Scan a Safe code or a signing request from UniPass Inkan Desktop.").foregroundStyle(.secondary)
+            }
+        }
+        .id(refresh)
+        .navigationTitle("My Safes")
+        .navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+struct AddressBookView: View {
+    @Environment(AppModel.self) private var model
+    @State private var refresh = 0
+
+    var body: some View {
+        List {
+            ForEach(model.store.addressBook, id: \.self) { b in
+                AddressView(info: AddressInfo(address: Address(hex: b.address)!, label: b.label, source: .addressBook), hidesSource: true, compact: true)
+                    .swipeActions {
+                        Button("Remove", role: .destructive) {
+                            try? model.store.removeFromAddressBook(Address(hex: b.address)!)
+                            refresh += 1
+                        }
+                    }
+            }
+            if model.store.addressBook.isEmpty {
+                Text("New addresses are added here only after you confirm them on this iPhone.").foregroundStyle(.secondary)
+            }
+        }
+        .id(refresh)
+        .navigationTitle("Address book")
+        .navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+/// 配对：`unipass-pairing` 二维码给 UniPass Inkan 桌面端扫。
+struct PairingView: View {
+    @Environment(AppModel.self) private var model
+
+    var body: some View {
+        @Bindable var model = model
+        List {
+            Section {
+                TextField("Device name", text: $model.deviceName)
+            }
+            if let p = model.pairing {
+                Section {
+                    URQRCode(ur: p.ur).frame(maxWidth: .infinity)
+                    SignerAddressBlock(address: p.signerProxy)
+                } footer: {
+                    Text("UniPass Inkan Desktop adds this address as a signer when it creates the Safe.")
+                }
+            }
+        }
+        .navigationTitle("Pair with UniPass Inkan Desktop")
+        .navigationBarTitleDisplayMode(.inline)
+    }
+}

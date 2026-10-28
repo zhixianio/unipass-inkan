@@ -1,0 +1,34 @@
+{
+  "description": "Bybit cold wallet hack, Ethereum mainnet, 2025-02-21. SafeTx structure as stated in public post-mortems; not reconstructed from chain data.",
+  "safe": "0x1Db92e2EeBC8E0c075a02BeA49a2935BcD2dFCF4",
+  "safeVersion": "1.1.1",
+  "chainId": 1,
+  "tx": {
+    "to": "0x96221423681A6d52E184D440a8eFCEbB105C7242",
+    "value": "0",
+    "data": "0xa9059cbb000000000000000000000000bdd077f651ebe7f7b3ce16fe5f2b025be29695160000000000000000000000000000000000000000000000000000000000000000",
+    "operation": 1,
+    "safeTxGas": "45746",
+    "baseGas": "0",
+    "gasPrice": "0",
+    "gasToken": "0x0000000000000000000000000000000000000000",
+    "refundReceiver": "0x0000000000000000000000000000000000000000",
+    "nonce": "71"
+  },
+  "safeTxHashOnChain": "0xb3476d061aeb8fc1d605a873c483a2402d88a68a9cdd1a8b47655dd55ba004f8",
+  "safeTxHashNote": "Safe 1.1.1 domain is EIP712Domain(address verifyingContract) without chainId; our SafeTx hash (>= 1.3.0 domain) differs by design. The hash and nonce come only from Safe's transaction service record.",
+  "execTransaction": "0x46deef0f52e3a983b67abf4714448a41dd7ffd6d32d32da69d62081c68ad7882",
+  "whatItDid": "data decodes to transfer(0xbDd077f651EBe7f7b3cE16fe5F2b025BE2969516, 0); the 0x9622... contract's transfer writes _to into storage slot 0, so under DELEGATECALL it overwrote the Safe proxy's masterCopy with 0xbDd0..., which has sweepETH/sweepERC20.",
+  "signatures": "The signers signed the bare safeTxHash (ETH_SIGN, v = 0x1f) according to Safe's transaction service record.",
+  "sources": {
+    "to, operation, data, safeTxGas, what it did": [
+      "https://www.nccgroup.com/research/in-depth-technical-analysis-of-the-bybit-hack/",
+      "https://blog.verichains.io/p/technical-analysis-of-the-bybit-hot",
+      "https://dfns.co/article/the-bybit-safe-hack"
+    ],
+    "operation (DELEGATECALL)": ["https://www.sygnia.co/blog/sygnia-investigation-bybit-hack/"],
+    "safe statement": ["https://safe.global/blog/safe-ecosystem-foundation-statement"],
+    "nonce, safeTxHash, signature types": ["https://api.safe.global/tx-service/eth/api/v2/safes/0x1Db92e2EeBC8E0c075a02BeA49a2935BcD2dFCF4/multisig-transactions/?nonce=71"]
+  },
+  "disagreements": "Check Point names 0xbdd0... as the delegatecall target; NCC, Verichains, Dfns, CertiK, BlockSec and Safe's record give 0x9622... (used here)."
+}

@@ -1,0 +1,11 @@
+// Copy to Local.xcconfig (ignored by git) and fill in your own values, then run `xcodegen generate` again.
+// 复制为 Local.xcconfig（不会提交），填上你自己的值，再重新 xcodegen generate。
+
+// Your Apple Developer Team ID (10 characters), see https://developer.apple.com/account → Membership details.
+DEVELOPMENT_TEAM = ABCDE12345
+CODE_SIGN_IDENTITY = Apple Development
+
+// A reverse-DNS prefix you own. The app's bundle ID becomes $(BUNDLE_ID_PREFIX).coordinator.
+// Don't change it after the app holds funds in its submitter account: a new bundle ID is a new app
+// that can't read the old one's keychain.
+BUNDLE_ID_PREFIX = com.example

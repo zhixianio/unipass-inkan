@@ -1,0 +1,5 @@
+# 由 project.yml 生成
+Signer.xcodeproj/
+build/
+# 个人签名配置（Team ID、Bundle ID 前缀），见 BUILDING.md
+Config/Local.xcconfig

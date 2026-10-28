@@ -1,0 +1,49 @@
+UniPass Inkan
+Copyright 2026 The UniPass Inkan Authors
+
+Licensed under the Apache License, Version 2.0 (see LICENSE), except for the
+files listed below.
+
+Files under other licenses
+--------------------------
+
+These two files embed the SafeWebAuthnSignerProxy creation code, compiled from
+safe-modules (https://github.com/safe-global/safe-modules, passkey v0.2.1),
+which is licensed LGPL-3.0-only. They keep that license:
+
+  apps/signer/SignerKit/Sources/SignerKit/SignerProxy.swift
+  contracts/src/PasskeyDeployments.sol
+
+The source files of those contracts and the safe-modules repository LICENSE are
+LGPL-3.0; the passkey npm package declares GPL-3.0 instead. We follow the
+source-file license for the compiled bytecode.
+
+The bytecode is needed to compute a signer's owner address offline (CREATE2).
+Anyone distributing a binary that includes SignerProxy.swift should check the
+LGPL-3.0 terms for that file.
+
+Third-party material
+--------------------
+
+contracts/lib/ (git submodules, unmodified):
+  safe-smart-account   LGPL-3.0-only
+  safe-modules         LGPL-3.0-only (the passkey npm package declares GPL-3.0)
+  forge-std            MIT OR Apache-2.0
+
+testvectors/ur/ (test data extracted from the following projects; details in
+docs/ur-types.md):
+  URKit, bc-ur, bc-ur-rust, BCR-2020-005/012   BSD-2-Clause-Patent
+  ur-rs                                         MIT
+  keystone-airgaped-base (ur-registry-eth)      ISC
+  keystone-sdk-rust (ur-registry)               MIT
+
+apps/coordinator/Packages/SubmitterAccount (Swift package dependency, fetched
+at build time, pinned to an exact version; linked only into the desktop app,
+never into core/ or the signer app):
+  swift-secp256k1 0.23.2 (https://github.com/21-DOT-DEV/swift-secp256k1)   MIT
+    Copyright (c) 2026 Timechain Software Initiative, Inc.
+    Only its `libsecp256k1` C target is linked: libsecp256k1 from Bitcoin
+    Core (https://github.com/bitcoin-core/secp256k1)                       MIT
+    Copyright (c) 2013 Pieter Wuille
+  Binaries of the desktop app include this code; their MIT copyright notices
+  and license texts must be shipped with those binaries.

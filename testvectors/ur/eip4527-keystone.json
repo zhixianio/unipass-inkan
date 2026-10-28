@@ -1,0 +1,54 @@
+{
+ "source_note": "Copied mechanically from the files named per vector. keystone-airgaped-base packages/ur-registry-eth (ISC, declared in package.json), keystone-sdk-rust libs/ur-registry (MIT). Fetched 2026-10-25.",
+ "vectors": [
+  {
+   "id": "V1",
+   "title": "eth-sign-request: legacy tx, chain-id 1, path m/44'/1'/1'/0/1, xfp 0x12345678, origin \"metamask\"",
+   "source": "keystone-airgaped-base `packages/ur-registry-eth/__tests__/EthSignRequest.test.ts` (test 1, UR) [ISC]; keystone-sdk-rust `libs/ur-registry/src/ethereum/eth_sign_request.rs` `test_encode` (hex) [MIT]",
+   "ur": "ur:eth-sign-request/oladtpdagdndcawmgtfrkigrpmndutdnbtkgfssbjnaohdgryagalalnascsgljpnbaelfdibemwaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaelaoxlbjyihjkjyeyaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaehnaehglalalaaxadaaadahtaaddyoeadlecsdwykadykadykaewkadwkaocybgeehfksatisjnihjyhsjnhsjkjetlnndant",
+   "cbor": "a601d825509b1deb4d3b7d4bad9bdd2b0d7b3dcb6d02584bf849808609184e72a00082271094000000000000000000000000000000000000000080a47f74657374320000000000000000000000000000000000000000000000000000006000578080800301040105d90130a2018a182cf501f501f500f401f4021a1234567807686d6574616d61736b"
+  },
+  {
+   "id": "V2",
+   "title": "eth-sign-request: same as V1 but without origin (built via `constructETHRequest(\"M/44'/1'/1'/0/1\", \"12345678\", ...)`, chainId passed as BigInt 1n)",
+   "source": "keystone-airgaped-base `packages/ur-registry-eth/__tests__/EthSignRequest.test.ts` (test 2) [ISC]",
+   "ur": "ur:eth-sign-request/onadtpdagdndcawmgtfrkigrpmndutdnbtkgfssbjnaohdgryagalalnascsgljpnbaelfdibemwaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaelaoxlbjyihjkjyeyaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaehnaehglalalaaxadaaadahtaaddyoeadlecsdwykadykadykaewkadwkaocybgeehfkswdtklffd",
+   "cbor": "a501d825509b1deb4d3b7d4bad9bdd2b0d7b3dcb6d02584bf849808609184e72a00082271094000000000000000000000000000000000000000080a47f74657374320000000000000000000000000000000000000000000000000000006000578080800301040105d90130a2018a182cf501f501f500f401f4021a12345678"
+  },
+  {
+   "id": "V3",
+   "title": "eth-sign-request: EIP-1559 (data-type 4), Avalanche Fuji C-chain 43113, path m/44'/60'/0'/0/6, xfp 0xbdeee782, origin \"core wallet\"",
+   "source": "keystone-sdk-rust `libs/ur-registry/src/ethereum/eth_sign_request.rs` `test_avax_c_chain_encode` [MIT]",
+   "ur": "ur:eth-sign-request/oladtpdagdndcawmgtfrkigrpmndutdnbtkgfssbjnaohdktaoyajylfpdinadlrcasnihaelrmdaoytaelfgmaymwfgpdenoltllabttepynyjemegsmhglyaadkgfdsplobtsgsrguwpcpknaelartadnbfnwmswgrgrtllpiorlcxhdmswnynldcpsrwnfwenjeeyenzooyinrnonpyltgmlrnbgmmetnwlcwbehtsartuoghkkwpwnweksmhtafndrpavydsmdwnvswprfmooxdmhtaxaaaacfpdinahtaaddyoeadlecsdwykcsfnykaeykaewkamwkaocyrywyvdlfatjeiajljpihcxkthsjzjzihjyfwkouyfp",
+   "cbor": "a601d825509b1deb4d3b7d4bad9bdd2b0d7b3dcb6d02587702f87482a86901841dcd6500849502f9008252089446a836a6d5800dd3ab9a6b914c904ef8017b48c8880dcac353ec227a0080c001a03cebc64b4bd58567b7205897f1f68922c3f142366b3236fba169bea5ab875284a05291dae91b105ac2c0dc5479ecf1ed7890d93c2ab1e12695f1e8ecbc92a42e5a03040419a86905d90130a2018a182cf5183cf500f500f406f4021abdeee782076b636f72652077616c6c6574"
+  },
+  {
+   "id": "V4",
+   "title": "eth-signature: request-id 9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d, 65-byte signature, origin \"keystone\"",
+   "source": "keystone-airgaped-base `packages/ur-registry-eth/__tests__/EthSignature.test.ts` (UR) [ISC]; keystone-sdk-rust `libs/ur-registry/src/ethereum/eth_signature.rs` `test_encode`/`test_decode` (hex) [MIT]",
+   "ur": "ur:eth-signature/otadtpdagdndcawmgtfrkigrpmndutdnbtkgfssbjnaohdfptywtosrftahprdctrkbegylogdghjkbafhflamfwlohghtpsseaozorsimnybbtnnbiynlckenbtfmeeamsabnaeoxasjkwswfkekiieckhpecckssptndzelnwfecylbwaxisjeihkkjkjyjljtihdwlkamiy",
+   "cbor": "a301d825509b1deb4d3b7d4bad9bdd2b0d7b3dcb6d025841d4f0a7bcd95bba1fbb1051885054730e3f47064288575aacc102fbbf6a9a14daa066991e360d3e3406c20c00a40973eff37c7d641e5b351ec4a99bfe86f335f71303686b657973746f6e65"
+  },
+  {
+   "id": "V5",
+   "title": "crypto-keypath (untagged, top-level UR) with wildcard last component: 44'/118'/0'/0/*, xfp 0x78230804, depth 5",
+   "source": "keystone-sdk-rust `libs/ur-registry/src/crypto_key_path.rs` `test_encode` [MIT] (source hex is upper-case: `A3018A182CF51876F500F500F480F4021A782308040305`)",
+   "ur": "ur:crypto-keypath/otadlecsdwykcskoykaeykaewklawkaocykscnayaaaxahrybsckoe",
+   "cbor": "a3018a182cf51876f500f500f480f4021a782308040305"
+  },
+  {
+   "id": "V6",
+   "title": "crypto-keypath: 44'/118'/0'/0/0, xfp 0x78230804, depth 5",
+   "source": "keystone-sdk-rust `libs/ur-registry/src/crypto_key_path.rs` `test_encode` [MIT]",
+   "ur": "ur:crypto-keypath/otadlecsdwykcskoykaeykaewkaewkaocykscnayaaaxahhpbkchot",
+   "cbor": "a3018a182cf51876f500f500f400f4021a782308040305"
+  },
+  {
+   "id": "V7",
+   "title": "eth-batch-sign-request (Keystone extension, tag 40404) wrapping V1 as tag 401 \u2014 shows the eth-sign-request tag in embedded position",
+   "source": "keystone-airgaped-base `packages/ur-registry-eth/__tests__/EthBatchSignRequest.test.ts` [ISC]",
+   "ur": "ur:eth-batch-sign-request/oyadlytaadmeoladtpdagdndcawmgtfrkigrpmndutdnbtkgfssbjnaohdgryagalalnascsgljpnbaelfdibemwaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaelaoxlbjyihjkjyeyaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaehnaehglalalaaxadaaadahtaaddyoeadlecsdwykadykadykaewkadwkaocybgeehfksatisjnihjyhsjnhsjkjekoamykvw",
+   "cbor": "a10181d90191a601d825509b1deb4d3b7d4bad9bdd2b0d7b3dcb6d02584bf849808609184e72a00082271094000000000000000000000000000000000000000080a47f74657374320000000000000000000000000000000000000000000000000000006000578080800301040105d90130a2018a182cf501f501f500f401f4021a1234567807686d6574616d61736b"
+  }
+ ]
+}

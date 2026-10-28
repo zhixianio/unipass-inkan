@@ -1,0 +1,2080 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "%@: 4 characters starting at character %lld after 0x of the address it flags": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "%1$@: 4 characters starting at character %2$lld after 0x of the address it flags"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@：它标出的那个地址 0x 之后第 %2$lld 位开始的 4 个字符"
+          }
+        }
+      }
+    },
+    "%@: 4 characters starting at character %lld after 0x, where it first differs from the address you know (highlighted in red)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "%1$@: 4 characters starting at character %2$lld after 0x, where it first differs from the address you know (highlighted in red)"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@：0x 之后第 %2$lld 位开始的 4 个字符，也就是它和你认识的那个地址第一处不同的地方（上面标红）"
+          }
+        }
+      }
+    },
+    "%@: the last 4 characters of the address it flags": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@：它标出的那个地址的后 4 位"
+          }
+        }
+      }
+    },
+    "%@: the last 4 characters of the function code": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@：函数代码的后 4 位"
+          }
+        }
+      }
+    },
+    "%@: the new number of required approvals": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@：新的所需同意人数"
+          }
+        }
+      }
+    },
+    "%lld of %lld must approve": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "%1$lld of %2$lld must approve"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%2$lld 人中 %1$lld 人同意"
+          }
+        }
+      }
+    },
+    "A cable or adapter is connected: unplug it.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "连着数据线或转接头：请拔掉。"
+          }
+        }
+      }
+    },
+    "About": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "关于"
+          }
+        }
+      }
+    },
+    "Add and continue": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "加入并继续"
+          }
+        }
+      }
+    },
+    "Add to address book": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "加入地址簿"
+          }
+        }
+      }
+    },
+    "Address book": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "地址簿"
+          }
+        }
+      }
+    },
+    "Address verified offline from its creation parameters": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已按创建参数离线核对地址"
+          }
+        }
+      }
+    },
+    "After": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "之后"
+          }
+        }
+      }
+    },
+    "Animated QR, %lld parts": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "动态二维码，共 %lld 帧"
+          }
+        }
+      }
+    },
+    "Any %lld of %lld must approve": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Any %1$lld of %2$lld must approve"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%2$lld 个签名人中任意 %1$lld 个同意即可"
+          }
+        }
+      }
+    },
+    "Any enrolled face": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "任何已录入的面容"
+          }
+        }
+      }
+    },
+    "Any single signer will be able to move funds alone.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "任何一个签名人单独就能动用资产。"
+          }
+        }
+      }
+    },
+    "Approve each signature with Face ID. You can't change this later.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "每次签名都用 Face ID 确认。选好后不能修改。"
+          }
+        }
+      }
+    },
+    "Approve signing this Safe transaction": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "确认签名这笔 Safe 交易"
+          }
+        }
+      }
+    },
+    "Based on the signers recorded when this Safe was added to this iPhone.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "以这个 Safe 加入本机时记录的签名人为准。"
+          }
+        }
+      }
+    },
+    "Before": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "之前"
+          }
+        }
+      }
+    },
+    "Bluetooth: the signer does not read its status, so that it carries no communication framework. Make sure it is off in Settings.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "蓝牙：签名器不读取蓝牙状态（为了不带任何通信框架），请在设置里确认已关闭。"
+          }
+        }
+      }
+    },
+    "Cable: not connected": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "数据线：未连接"
+          }
+        }
+      }
+    },
+    "Cancel": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "取消"
+          }
+        }
+      }
+    },
+    "Cellular data is connected: turn on Airplane Mode in Settings.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "蜂窝数据已连接：请在设置里打开飞行模式。"
+          }
+        }
+      }
+    },
+    "Cellular data: not connected": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "蜂窝数据：未连接"
+          }
+        }
+      }
+    },
+    "Check carefully": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请仔细核对"
+          }
+        }
+      }
+    },
+    "Close": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "关闭"
+          }
+        }
+      }
+    },
+    "Collection": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "合集"
+          }
+        }
+      }
+    },
+    "Compare every group with the address you expect, not just the first and last characters. Address poisoning copies those.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请逐组核对地址，不要只看开头和结尾几位——地址投毒伪造的正是这几位。"
+          }
+        }
+      }
+    },
+    "Continue": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "继续"
+          }
+        }
+      }
+    },
+    "Contract": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "合约"
+          }
+        }
+      }
+    },
+    "Create a signing key": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "生成签名密钥"
+          }
+        }
+      }
+    },
+    "Create a signing key first.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请先生成签名密钥。"
+          }
+        }
+      }
+    },
+    "Create a signing key to start signing.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "生成签名密钥后就能签名。"
+          }
+        }
+      }
+    },
+    "Create signing key": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "生成签名密钥"
+          }
+        }
+      }
+    },
+    "DELETE": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "删除"
+          }
+        }
+      }
+    },
+    "Delete for good?": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "确定永久删除？"
+          }
+        }
+      }
+    },
+    "Delete key": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "删除密钥"
+          }
+        }
+      }
+    },
+    "Delete signing key": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "删除签名密钥"
+          }
+        }
+      }
+    },
+    "Delete the signing key that could not be read": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "删除读不出的签名密钥"
+          }
+        }
+      }
+    },
+    "Delete the signing key?": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "删除签名密钥？"
+          }
+        }
+      }
+    },
+    "Delete the unreadable signing key": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "删除读不出的签名密钥"
+          }
+        }
+      }
+    },
+    "Delete unreadable key": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "删除读不出的密钥"
+          }
+        }
+      }
+    },
+    "Device name": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "设备名"
+          }
+        }
+      }
+    },
+    "Disconnect from the network to sign.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "断开网络后才能签名。"
+          }
+        }
+      }
+    },
+    "Don't send funds": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请勿转入资产"
+          }
+        }
+      }
+    },
+    "Done": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "完成"
+          }
+        }
+      }
+    },
+    "Every Safe this key signs for loses this signer. Its other signers have to replace it.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "它是哪些 Safe 的签名人，那些 Safe 就少了这一个签名人，要靠其他签名人把它换掉。"
+          }
+        }
+      }
+    },
+    "Every signer must approve. Losing any single key locks the Safe for good.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "必须所有签名人都同意。丢掉任何一把密钥，Safe 就永远动不了。"
+          }
+        }
+      }
+    },
+    "Execution gas (safeTxGas)": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "执行 gas（safeTxGas）"
+          }
+        }
+      }
+    },
+    "Face ID": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Face ID"
+          }
+        }
+      }
+    },
+    "Face ID or the passcode is required first.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "删除前要先通过 Face ID 或锁屏密码验证。"
+          }
+        }
+      }
+    },
+    "Face ID setting": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Face ID 设置"
+          }
+        }
+      }
+    },
+    "Fallback handler": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fallback handler"
+          }
+        }
+      }
+    },
+    "First make sure the other signers of each Safe can still give the required approvals without this iPhone, or replace this iPhone as a signer. Otherwise the Safe's assets may be locked for good.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请先确认：没有本机，每个 Safe 的其他签名人仍然凑得够所需的同意人数；或者先把本机从签名人里换掉。否则 Safe 里的资产可能永远动不了。"
+          }
+        }
+      }
+    },
+    "First seen": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "首次出现"
+          }
+        }
+      }
+    },
+    "First time seeing this Safe": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "首次见到这个 Safe"
+          }
+        }
+      }
+    },
+    "From": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "从"
+          }
+        }
+      }
+    },
+    "Full fingerprint (safeTxHash)": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "完整交易指纹（safeTxHash）"
+          }
+        }
+      }
+    },
+    "Get started": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "开始"
+          }
+        }
+      }
+    },
+    "High risk": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "高风险"
+          }
+        }
+      }
+    },
+    "High risk. To continue, type the 4 characters asked for in each item below, separated by spaces.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "高风险。要继续，请按下面每一项的要求输入对应的字符，用空格分隔。"
+          }
+        }
+      }
+    },
+    "How to choose?": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "怎么选？"
+          }
+        }
+      }
+    },
+    "In Settings, turn on Airplane Mode and turn off Wi-Fi and Bluetooth. Don't use Control Center: its switches only disconnect until the next day.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请在设置里打开飞行模式，并关掉 Wi-Fi 和蓝牙。不要用控制中心：那里的开关只断开到第二天，之后会自动恢复。"
+          }
+        }
+      }
+    },
+    "It is created in this iPhone's security chip and never leaves it.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "密钥在安全芯片里生成，永远不会离开芯片。"
+          }
+        }
+      }
+    },
+    "Item": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "物品"
+          }
+        }
+      }
+    },
+    "Keeps working after Face ID enrollment changes": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Face ID 录入变化后仍可用"
+          }
+        }
+      }
+    },
+    "Keeps working when Face ID changes. But anyone who knows your passcode can add their face and sign.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "面容变了照样能用；代价是知道锁屏密码的人可以加上自己的脸来签。"
+          }
+        }
+      }
+    },
+    "Known contract": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已知合约"
+          }
+        }
+      }
+    },
+    "Known token": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已知代币"
+          }
+        }
+      }
+    },
+    "Known: %@": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已知地址：%@"
+          }
+        }
+      }
+    },
+    "Known: signer of the Safe %@": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已知地址：Safe %@ 的签名人"
+          }
+        }
+      }
+    },
+    "Known: this iPhone's signer address": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已知地址：本机的签名人地址"
+          }
+        }
+      }
+    },
+    "License": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "许可证"
+          }
+        }
+      }
+    },
+    "Looks like an address you know, but is not the same": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "看起来像你认识的地址，但不是同一个"
+          }
+        }
+      }
+    },
+    "My Safe": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "我的 Safe"
+          }
+        }
+      }
+    },
+    "My Safes": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "我的 Safe"
+          }
+        }
+      }
+    },
+    "Name": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "名字"
+          }
+        }
+      }
+    },
+    "Name (optional)": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "名字（可选）"
+          }
+        }
+      }
+    },
+    "Network": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "网络"
+          }
+        }
+      }
+    },
+    "Network details": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "联网详情"
+          }
+        }
+      }
+    },
+    "Network interfaces": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "网络接口"
+          }
+        }
+      }
+    },
+    "New Safe": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新的 Safe"
+          }
+        }
+      }
+    },
+    "New addresses are added here only after you confirm them on this iPhone.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新地址只有在本机上确认后才会加入这里。"
+          }
+        }
+      }
+    },
+    "Next: pair with UniPass Inkan Desktop": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "下一步：与 UniPass Inkan 桌面端配对"
+          }
+        }
+      }
+    },
+    "No Safes yet. Scan a Safe code or a signing request from UniPass Inkan Desktop.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "还没有 Safe。请扫描 UniPass Inkan 桌面端上的 Safe 码或签名请求。"
+          }
+        }
+      }
+    },
+    "No camera in the simulator": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "模拟器没有摄像头"
+          }
+        }
+      }
+    },
+    "No issues found": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未发现问题"
+          }
+        }
+      }
+    },
+    "No registered Safe has this key as a signer.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已登记的 Safe 里没有以这把密钥为签名人的。"
+          }
+        }
+      }
+    },
+    "No signing key on this iPhone.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "本机还没有签名密钥。"
+          }
+        }
+      }
+    },
+    "Nobody else knows your passcode, and you may change Face ID later.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "锁屏密码只有你知道，以后可能会改面容录入。"
+          }
+        }
+      }
+    },
+    "Nonce": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nonce"
+          }
+        }
+      }
+    },
+    "None": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "无"
+          }
+        }
+      }
+    },
+    "Not in address book": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "不在地址簿里"
+          }
+        }
+      }
+    },
+    "Offline": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已离线"
+          }
+        }
+      }
+    },
+    "Offline: ready to sign": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已离线，可以签名"
+          }
+        }
+      }
+    },
+    "Online: cannot sign": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已联网，不能签名"
+          }
+        }
+      }
+    },
+    "Only the faces enrolled now": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "仅限现在录入的面容"
+          }
+        }
+      }
+    },
+    "Open the pairing page in UniPass Inkan Desktop and scan this iPhone's pairing code. The desktop then adds this iPhone as a signer when it creates your Safe.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在 UniPass Inkan 桌面端打开配对页，扫本机的配对码。之后桌面端创建 Safe 时会把本机加为签名人。"
+          }
+        }
+      }
+    },
+    "Operator": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "操作方"
+          }
+        }
+      }
+    },
+    "Pair with UniPass Inkan Desktop": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "与 UniPass Inkan 桌面端配对"
+          }
+        }
+      }
+    },
+    "QR code": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "二维码"
+          }
+        }
+      }
+    },
+    "Recorded the last time the key could be read.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这是上次能读出密钥时记下的签名人地址。"
+          }
+        }
+      }
+    },
+    "Refused": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "拒签"
+          }
+        }
+      }
+    },
+    "Register Safe": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "登记 Safe"
+          }
+        }
+      }
+    },
+    "Register this Safe": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "登记这个 Safe"
+          }
+        }
+      }
+    },
+    "Registered Safes": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已登记的 Safe"
+          }
+        }
+      }
+    },
+    "Registered Safes with this signer": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "以它为签名人的已登记 Safe"
+          }
+        }
+      }
+    },
+    "Remove": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "删除"
+          }
+        }
+      }
+    },
+    "Required approvals unknown": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "所需同意人数未知"
+          }
+        }
+      }
+    },
+    "Review transaction": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "核对交易"
+          }
+        }
+      }
+    },
+    "Risk checks": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "风险检查"
+          }
+        }
+      }
+    },
+    "Safe": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Safe"
+          }
+        }
+      }
+    },
+    "Safe address": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Safe 地址"
+          }
+        }
+      }
+    },
+    "Safe signer": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Safe 签名人"
+          }
+        }
+      }
+    },
+    "Safer: nobody can sign by adding their own face. But any Face ID change disables the key for good, so it is easier to lose.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更安全，别人加了自己的脸也签不了；代价是面容录入一变，密钥永久失效，丢失风险更大。"
+          }
+        }
+      }
+    },
+    "Save": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "保存"
+          }
+        }
+      }
+    },
+    "Scan": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "扫码"
+          }
+        }
+      }
+    },
+    "Scan a QR code": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "扫描二维码"
+          }
+        }
+      }
+    },
+    "Send": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "发送"
+          }
+        }
+      }
+    },
+    "Sepolia (testnet)": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sepolia（测试网）"
+          }
+        }
+      }
+    },
+    "Settings": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "设置"
+          }
+        }
+      }
+    },
+    "Show pairing code": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "显示配对码"
+          }
+        }
+      }
+    },
+    "Show this code to UniPass Inkan Desktop.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "把这个码给 UniPass Inkan 桌面端扫。"
+          }
+        }
+      }
+    },
+    "Sign anyway with Face ID": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "仍然用 Face ID 签名"
+          }
+        }
+      }
+    },
+    "Sign with Face ID": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "用 Face ID 签名"
+          }
+        }
+      }
+    },
+    "Signed": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已签名"
+          }
+        }
+      }
+    },
+    "Signer %@ is not in this iPhone's record. The record may be outdated, or the transaction will fail.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "签名人 %@ 不在本机的记录里。可能记录已过时，或者这笔交易会失败。"
+          }
+        }
+      }
+    },
+    "Signer address": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "签名人地址"
+          }
+        }
+      }
+    },
+    "Signers": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "签名人"
+          }
+        }
+      }
+    },
+    "Signers before and after": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "变更前后的签名人"
+          }
+        }
+      }
+    },
+    "Signing key": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "签名密钥"
+          }
+        }
+      }
+    },
+    "Signing key created": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "签名密钥已生成"
+          }
+        }
+      }
+    },
+    "Skipped an unreadable frame.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "跳过了一帧无法识别的码。"
+          }
+        }
+      }
+    },
+    "Software key (debug only, NOT Secure Enclave)": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "软件密钥（仅调试，不是 Secure Enclave）"
+          }
+        }
+      }
+    },
+    "Spender": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "被授权方"
+          }
+        }
+      }
+    },
+    "Stops working for good if Face ID enrollment changes": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Face ID 录入一变，密钥永久失效"
+          }
+        }
+      }
+    },
+    "Stored in this iPhone's security chip. It never leaves it.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "保存在本机的安全芯片里，不会离开芯片。"
+          }
+        }
+      }
+    },
+    "Target": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "目标"
+          }
+        }
+      }
+    },
+    "Technical details": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "技术细节"
+          }
+        }
+      }
+    },
+    "The Face ID setting is chosen when the key is created and cannot be changed. To use a different one, delete the key and create a new one, which has to be added to your Safe as a new signer.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Face ID 设置在生成密钥时选定，之后不能修改。要换一种，只能删除密钥再生成新的，新密钥要在 Safe 里重新加为签名人。"
+          }
+        }
+      }
+    },
+    "The Safe address does not match its creation parameters. Do not register it.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Safe 地址和它的创建参数对不上，不要登记。"
+          }
+        }
+      }
+    },
+    "The Safe code could not be read.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Safe 码无法读取。"
+          }
+        }
+      }
+    },
+    "The Safe was not created with an official Safe factory and implementation, so its address cannot be verified offline.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这个 Safe 不是用 Safe 官方的工厂合约和实现合约创建的，无法离线核对地址。"
+          }
+        }
+      }
+    },
+    "The characters in red are different. The beginning and the end match on purpose.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "标红的字符不一样。开头和结尾相同是故意伪造的。"
+          }
+        }
+      }
+    },
+    "The code could not be decoded. Ask UniPass Inkan Desktop to show it again.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这个码无法解码，请让 UniPass Inkan 桌面端重新显示。"
+          }
+        }
+      }
+    },
+    "The code could not be read.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这个码无法读取。"
+          }
+        }
+      }
+    },
+    "The key can't be exported and is lost if this iPhone is erased or replaced, so your Safe needs other signers. Either way, turn on Stolen Device Protection in Settings › Face ID & Passcode.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "密钥不能导出，抹掉或换手机就丢了，所以 Safe 里要有其他签名人。无论选哪项，都请在 设置 › 面容 ID 与密码 里打开“失窃设备保护”。"
+          }
+        }
+      }
+    },
+    "The key is gone for good and cannot be recovered. It cannot be exported, and there is no backup.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这把密钥永久消失，找不回来：它导不出来，也没有备份。"
+          }
+        }
+      }
+    },
+    "The key is in this iPhone's security chip and cannot be exported.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "密钥在本机的安全芯片里，不能导出。"
+          }
+        }
+      }
+    },
+    "The key may also be a signer of Safes that were never added here. Registered Safes and the address book are kept.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这把密钥也可能是没在这里登记过的 Safe 的签名人。已登记的 Safe 和地址簿都会保留。"
+          }
+        }
+      }
+    },
+    "The network state could not be read, so signing is refused.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "读不出联网状态，所以拒绝签名。"
+          }
+        }
+      }
+    },
+    "The required approvals are more than the number of signers; the transaction will fail.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "所需同意人数多于签名人数，这笔交易会失败。"
+          }
+        }
+      }
+    },
+    "The signer address is unknown, so every registered Safe is listed. Each was checked to have this iPhone's key at that time as a signer when it was added.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "不知道签名人地址，所以列出了全部已登记的 Safe。每个 Safe 登记时都核对过：当时这台 iPhone 上的密钥是它的签名人。"
+          }
+        }
+      }
+    },
+    "The signing key can be read now, so it was not deleted.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "签名密钥现在能读出来了，所以没有删除。"
+          }
+        }
+      }
+    },
+    "The signing key could not be read": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "读不出签名密钥"
+          }
+        }
+      }
+    },
+    "This QR code is not a signing request or a Safe code from UniPass Inkan Desktop.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这个二维码不是 UniPass Inkan 桌面端的签名请求或 Safe 码。"
+          }
+        }
+      }
+    },
+    "This Safe does not use an official fallback handler. A fallback handler can approve signatures on the Safe's behalf, so it cannot be added.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这个 Safe 用的不是官方的 fallback handler。fallback handler 可以替 Safe 认可签名，所以不能添加。"
+          }
+        }
+      }
+    },
+    "This Safe paid someone while it was being created. UniPass Inkan Desktop never creates a Safe this way, so it cannot be added.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这个 Safe 创建时向别人付了款。UniPass Inkan 桌面端不会这样创建 Safe，所以不能添加。"
+          }
+        }
+      }
+    },
+    "This Safe ran an extra call while it was being created, which can add modules or signers that are not shown here. It cannot be added.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这个 Safe 创建时额外执行了一段调用，可能借此加了这里看不到的模块或签名人。不能添加。"
+          }
+        }
+      }
+    },
+    "This device has no Secure Enclave. A debug software key will be created, and this setting does not apply to it.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这台设备没有 Secure Enclave，会生成调试用的软件密钥，不受这个选项约束。"
+          }
+        }
+      }
+    },
+    "This iPhone": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "本机"
+          }
+        }
+      }
+    },
+    "This iPhone has no network connection. The signer does not read Bluetooth status, so that it carries no communication framework: make sure Bluetooth is off in Settings.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "本机没有任何网络连接。签名器不读取蓝牙状态（为了不带任何通信框架），请在设置里确认蓝牙已关闭。"
+          }
+        }
+      }
+    },
+    "This iPhone is not a signer of this Safe, so the Safe cannot be added. Make sure this is the Safe you expect and that this iPhone was added as a signer when it was created.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "本机不是这个 Safe 的签名人，不能加入。请确认这是你要的 Safe，并且创建时把本机加为了签名人。"
+          }
+        }
+      }
+    },
+    "This iPhone went online while signing. Disconnect everything listed above, then try again.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "签名时这台 iPhone 联网了。请断开上面列出的连接，再试一次。"
+          }
+        }
+      }
+    },
+    "This iPhone will no longer be a signer.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "本机将不再是签名人。"
+          }
+        }
+      }
+    },
+    "This iPhone will no longer be able to sign for your Safes. The key cannot be exported, so it cannot be recovered.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "本机将不能再为你的 Safe 签名。密钥不能导出，删除后无法找回。"
+          }
+        }
+      }
+    },
+    "This iPhone's signer address": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "本机签名人地址"
+          }
+        }
+      }
+    },
+    "This key no longer works: Face ID enrollment changed after it was created. Ask the other signers to remove this iPhone from the Safe, then create a new key and pair again.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这把密钥已经失效：生成它之后 Face ID 的录入变了。请让其他签名人把本机从 Safe 里移除，再生成新密钥并重新配对。"
+          }
+        }
+      }
+    },
+    "This network is not supported.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "不支持这个网络。"
+          }
+        }
+      }
+    },
+    "This proves only the signers and required approvals the Safe was created with. If they were changed later, this iPhone does not know about it.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这里只能证明 Safe 创建时的签名人和所需同意人数。如果之后改过，本机并不知道。"
+          }
+        }
+      }
+    },
+    "This request cannot be signed. There is no way to override this.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这个请求不能签，也没有越过的办法。"
+          }
+        }
+      }
+    },
+    "This signing request is for a Safe that is not in My Safes yet. Check its signers below. Add it and continue to the transaction?": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这个签名请求来自一个还不在“我的 Safe”里的 Safe。请核对下面的签名人。加入并继续查看这笔交易？"
+          }
+        }
+      }
+    },
+    "This transaction": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这笔交易里的地址"
+          }
+        }
+      }
+    },
+    "To": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "给"
+          }
+        }
+      }
+    },
+    "To delete, type %@": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "要删除，请输入“%@”"
+          }
+        }
+      }
+    },
+    "Token": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "代币"
+          }
+        }
+      }
+    },
+    "Token contract": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "代币合约"
+          }
+        }
+      }
+    },
+    "Token contract not in the built-in library": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "代币合约不在内置标签库里"
+          }
+        }
+      }
+    },
+    "Transaction": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "交易"
+          }
+        }
+      }
+    },
+    "Transaction fingerprint": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "交易指纹"
+          }
+        }
+      }
+    },
+    "Try again": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重试"
+          }
+        }
+      }
+    },
+    "Turn Wi-Fi and Bluetooth off in Settings, not in Control Center: Control Center only disconnects them until the next day or a restart. Airplane Mode leaves Bluetooth on, and remembers Wi-Fi or Bluetooth you turned back on while in it.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请在设置里关掉 Wi-Fi 和蓝牙，不要用控制中心：控制中心只断开到第二天或重启为止。飞行模式不会关蓝牙；在飞行模式下手动打开过的 Wi-Fi 或蓝牙，下次开飞行模式时也会保持打开。"
+          }
+        }
+      }
+    },
+    "Type %@": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "输入 %@"
+          }
+        }
+      }
+    },
+    "Type the characters asked for above to enable signing.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "先在上面输入要求的字符，才能签名。"
+          }
+        }
+      }
+    },
+    "Type the rule id %@": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "输入规则号 %@"
+          }
+        }
+      }
+    },
+    "UniPass Inkan Desktop adds this address as a signer when it creates the Safe.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "UniPass Inkan 桌面端创建 Safe 时会把这个地址加为签名人。"
+          }
+        }
+      }
+    },
+    "UniPass Inkan Signer": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "UniPass Inkan 签名器"
+          }
+        }
+      }
+    },
+    "UniPass Inkan is open source. This app never connects to the internet: requests and signatures travel only as QR codes.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "UniPass Inkan 是开源软件。这个 App 从不联网：签名请求和签名只通过二维码传递。"
+          }
+        }
+      }
+    },
+    "Unknown": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未知"
+          }
+        }
+      }
+    },
+    "Unlimited": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "无限"
+          }
+        }
+      }
+    },
+    "Unlock this iPhone and try again. Do not create a new key: this iPhone may still be a signer of your Safe.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请解锁这台 iPhone 后重试。不要生成新密钥：这台 iPhone 可能仍是你的 Safe 的签名人。"
+          }
+        }
+      }
+    },
+    "Unsupported network": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "不支持的网络"
+          }
+        }
+      }
+    },
+    "Version": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "版本"
+          }
+        }
+      }
+    },
+    "What deleting does": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "删除后会怎样"
+          }
+        }
+      }
+    },
+    "What it does": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这笔交易做什么"
+          }
+        }
+      }
+    },
+    "Why it was refused": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "拒签原因"
+          }
+        }
+      }
+    },
+    "Wi-Fi is connected: turn it off in Settings › Wi-Fi.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wi-Fi 已连接：请在 设置 › Wi-Fi 里关掉。"
+          }
+        }
+      }
+    },
+    "Wi-Fi is on but not connected. Turn it off in Settings › Wi-Fi: it can join a known network at any time.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wi-Fi 还开着（没有连上网络）。请在 设置 › Wi-Fi 里关掉，它随时可能自动连上以前用过的网络。"
+          }
+        }
+      }
+    },
+    "Wi-Fi: not connected": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wi-Fi：未连接"
+          }
+        }
+      }
+    },
+    "You can then create a new key, but it has a different signer address and has to be added to each Safe as a new signer.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "删除后可以生成一把新密钥，但它是另一个签名人地址，要作为新签名人重新加入各个 Safe。"
+          }
+        }
+      }
+    },
+    "Your Safe has enough other signers to replace this iPhone if the key stops working.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Safe 里有足够的其他签名人，密钥失效时可以换掉这台 iPhone。"
+          }
+        }
+      }
+    },
+    "e.g. 7242 9111": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "例如 7242 9111"
+          }
+        }
+      }
+    },
+    "raw units": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最小单位"
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

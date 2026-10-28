@@ -1,0 +1,11 @@
+{
+  "name": "unipass-testvectors",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate": "node generate.mjs"
+  },
+  "dependencies": {
+    "viem": "2.38.0"
+  }
+}

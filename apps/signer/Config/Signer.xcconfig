@@ -1,0 +1,11 @@
+// 签名配置（A22：用户从源码自己构建）。这里只放公开的默认值。
+// 自己构建时：cp Config/Local.xcconfig.example Config/Local.xcconfig，填上自己的 Team ID 和 Bundle ID 前缀。
+// Local.xcconfig 在 .gitignore 里，不要提交。
+
+// 默认前缀是 UniPass 自己的 App ID（xyz.unipass.signer），已经注册在我们的团队下，别人用不了，必须改成自己的。
+BUNDLE_ID_PREFIX = xyz.unipass
+DEVELOPMENT_TEAM =
+
+PRODUCT_BUNDLE_IDENTIFIER = $(BUNDLE_ID_PREFIX).signer
+
+#include? "Local.xcconfig"

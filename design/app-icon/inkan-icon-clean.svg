@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <title>UniPass Inkan icon</title>
+  <rect width="1024" height="1024" fill="#FCF0DF"/>
+  <circle cx="512" cy="500" r="365" fill="#E3281B"/>
+  <rect x="360" y="230" width="305" height="545" rx="46" fill="#FCF0DF"/>
+  <rect x="387" y="293" width="251" height="420" rx="22" fill="#E3281B"/>
+  <rect x="472" y="255" width="81" height="17" rx="8.5" fill="#E3281B"/>
+  <path fill="#FCF0DF" d="M512 431a37 37 0 0 1 24.500 64.700L546 566q1 5-4 5h-60q-5 0-4-5l9.500-70.300A37 37 0 0 1 512 431z"/>
+</svg>
