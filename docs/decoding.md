@@ -5,7 +5,7 @@
 Signer 收到签名请求后自己解码，不依赖 Coordinator 的任何描述。流程：
 
 1. `eth-sign-request` → `SafeTxRequest(signRequest:)`：严格解析 EIP-712 JSON（格式见 `docs/ur-types.md`「SafeTx 的 EIP-712 JSON」），重算 safeTxHash。任何一处不符都是**硬拒**。
-2. `DecodedSafeTx(request)` → `CallDecoder`：识别调用数据，展开 MultiSend。解码本身不会失败；不能执行或编码不规范的地方记为 `CallAction.invalid(DecodingProblem)`，规则层（块 3）把它们一律判为硬拒。
+2. `DecodedSafeTx(request)` → `CallDecoder`：识别调用数据，展开 MultiSend。解码本身不会失败；不能执行或编码不规范的地方记为 `CallAction.invalid(DecodingProblem)`，规则层把它们一律判为硬拒。
 
 ## 识别的函数
 
